@@ -112,4 +112,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-👨‍💻 Designed and developed with ❤️ by [Your Name] 
+👨‍💻 Designed and developed with ❤️ by [Kadiyala Rajesh] 
