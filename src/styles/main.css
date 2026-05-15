@@ -1,0 +1,24 @@
+@import './variables.css';
+@import './layout.css';
+@import './hero-theme.css';
+@import './about-theme.css';
+@import './projects-theme.css';
+@import './contact-theme.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--rk-cream);
+  color: var(--rk-dark);
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}

@@ -9,6 +9,12 @@
 # production
 /build
 /dist
+*.local
+
+# design source duplicates (use public/ assets)
+/*.png
+/*.svg
+!public/**
 
 # misc
 .DS_Store

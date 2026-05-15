@@ -1,179 +1,148 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Code, ChevronDown } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { Menu, X } from 'lucide-react';
+
+const NAV_LINKS = [
+  { label: 'Home', href: '#home' },
+  { label: 'About me', href: '#about' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Contact', href: '#contact' },
+];
+
+const LinkedInIcon = () => (
+  <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect x="2" y="9" width="4" height="12" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
+const GitHubIcon = () => (
+  <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+  </svg>
+);
+
+const MailIcon = () => (
+  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+    <polyline points="22,6 12,13 2,6" />
+  </svg>
+);
 
 const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [resumeDropdownOpen, setResumeDropdownOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState('Home');
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
+    const sectionIds = NAV_LINKS.map((link) => link.href.replace('#', ''));
+
     const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
+      const scrollY = window.scrollY + 120;
+      let current = 'home';
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollY) {
+          current = id;
+        }
+      }
+
+      const match = NAV_LINKS.find((link) => link.href === `#${current}`);
+      if (match) {
+        setActiveLink(match.label);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleResumeDropdown = () => {
-    setResumeDropdownOpen(!resumeDropdownOpen);
+  const handleNavClick = (label: string) => {
+    setActiveLink(label);
+    setMobileOpen(false);
   };
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const closeDropdown = () => {
-      setResumeDropdownOpen(false);
-    };
-
-    if (resumeDropdownOpen) {
-      document.addEventListener('click', closeDropdown);
-    }
-
-    return () => {
-      document.removeEventListener('click', closeDropdown);
-    };
-  }, [resumeDropdownOpen]);
-
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-black/80 backdrop-blur-md py-3' : 'bg-transparent py-5'
-      }`}
-    >
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-1">
-            <Code size={24} className="text-purple-500" />
-            <span className="text-white font-bold text-xl ml-2">Rajesh Kadiyala</span>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#about" className="text-gray-300 hover:text-white transition-colors">
-              About
-            </a>
-            <a href="#skills" className="text-gray-300 hover:text-white transition-colors">
-              Skills
-            </a>
-            <a href="#projects" className="text-gray-300 hover:text-white transition-colors">
-              Projects
-            </a>
-            <a href="#contact" className="text-gray-300 hover:text-white transition-colors">
-              Contact
-            </a>
-          </div>
-
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="relative">
-              <Button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleResumeDropdown();
-                }}
-                className="flex items-center"
-              >
-                Resume <ChevronDown size={16} className="ml-2" />
-              </Button>
-              
-              {resumeDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-gray-900 rounded-lg shadow-lg py-2 z-10">
-                  <a 
-                    href="Rajesh_Resume.pdf"
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800"
-                  >
-                    View Resume
-                  </a>
-                  <a 
-                    href="Rajesh_Resume.pdf"
-                    download="Rajesh_Kadiyala_Resume.pdf"
-                    className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800"
-                  >
-                    Download Resume
-                  </a>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-white focus:outline-none"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden pt-4 pb-4 space-y-4 flex flex-col">
-            <a
-              href="#about"
-              className="text-gray-300 hover:text-white transition-colors py-2"
-              onClick={() => setIsOpen(false)}
-            >
-              About
-            </a>
-            <a
-              href="#skills"
-              className="text-gray-300 hover:text-white transition-colors py-2"
-              onClick={() => setIsOpen(false)}
-            >
-              Skills
-            </a>
-            <a
-              href="#projects"
-              className="text-gray-300 hover:text-white transition-colors py-2"
-              onClick={() => setIsOpen(false)}
-            >
-              Projects
-            </a>
-            <a
-              href="#contact"
-              className="text-gray-300 hover:text-white transition-colors py-2"
-              onClick={() => setIsOpen(false)}
-            >
-              Contact
-            </a>
-            <div className="space-y-2 mt-2">
-              <a
-                href="Rajesh_Resume.pdf"
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="block"
-              >
-                <Button className="w-full justify-center" variant="outline">
-                  View Resume
-                </Button>
-              </a>
-              <a
-                href="Rajesh_Resume.pdf"
-                download="Rajesh_Kadiyala_Resume.pdf"
-                className="block"
-              >
-                <Button className="w-full justify-center">
-                  Download Resume
-                </Button>
-              </a>
-            </div>
-          </div>
-        )}
+    <nav className="rk-nav">
+      <div className="rk-nav-icons">
+        <a
+          href="https://www.linkedin.com/in/rajesh-kadiyala"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="LinkedIn"
+        >
+          <LinkedInIcon />
+        </a>
+        <a
+          href="https://github.com/rajeshkadiyalaaa"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="GitHub"
+        >
+          <GitHubIcon />
+        </a>
+        <a href="mailto:rajeshkadiyala2003@gmail.com" title="Email">
+          <MailIcon />
+        </a>
       </div>
+
+      <div className="rk-nav-links">
+        {NAV_LINKS.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            className={activeLink === link.label ? 'active' : ''}
+            onClick={() => handleNavClick(link.label)}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <a
+        href="Rajesh_Resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="rk-btn-resume"
+      >
+        Resume
+      </a>
+
+      <button
+        type="button"
+        className="rk-nav-mobile-toggle"
+        onClick={() => setMobileOpen(!mobileOpen)}
+        aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+      >
+        {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+      </button>
+
+      {mobileOpen && (
+        <div className="rk-nav-mobile-menu">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className={activeLink === link.label ? 'active' : ''}
+              onClick={() => handleNavClick(link.label)}
+            >
+              {link.label}
+            </a>
+          ))}
+          <a
+            href="Rajesh_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rk-btn-resume"
+            style={{ width: 'fit-content' }}
+          >
+            Resume
+          </a>
+        </div>
+      )}
     </nav>
   );
 };
 
-export default Navbar; 
+export default Navbar;
