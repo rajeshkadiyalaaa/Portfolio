@@ -1,21 +1,38 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 import { useHeroVideoPlayback } from '../../hooks/useHeroVideoPlayback';
+import { WaterRipple } from '../ui/water-ripple';
 
 const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const skipVideo = useHeroVideoPlayback(sectionRef, videoRef);
+  const { skipVideo, media } = useHeroVideoPlayback(sectionRef, videoRef);
+  const [videoUnavailable, setVideoUnavailable] = useState(skipVideo);
+  const showVideo = !skipVideo && !videoUnavailable;
 
   return (
-    <section id="home" className="rk-hero" ref={sectionRef}>
+    <section
+      id="home"
+      ref={sectionRef}
+      className={`rk-hero${media.isMobile ? ' rk-hero--mobile' : ''}`}
+      data-water-ripple
+    >
+      <WaterRipple />
       <div className="rk-hero-bg" aria-hidden />
 
-      {!skipVideo ? (
+      <div
+        className="rk-hero-poster"
+        role="presentation"
+        aria-hidden
+        style={{ backgroundImage: `url('${media.poster}')` }}
+      />
+
+      {showVideo ? (
         <video
           ref={videoRef}
           className="rk-hero-video"
-          poster="/hero-content.png"
+          src={media.videoSrc}
+          poster={media.poster}
           muted
           loop
           playsInline
@@ -23,12 +40,12 @@ const Hero: React.FC = () => {
           disablePictureInPicture
           disableRemotePlayback
           aria-hidden
+          onError={() => setVideoUnavailable(true)}
         />
-      ) : (
-        <div className="rk-hero-poster" role="presentation" aria-hidden />
-      )}
+      ) : null}
 
       <div className="rk-hero-glow" aria-hidden />
+      <div className="rk-hero-scrim" aria-hidden />
 
       <div className="rk-hero-content">
         <h1 className="rk-name">
@@ -39,11 +56,13 @@ const Hero: React.FC = () => {
         <p className="rk-title">
           <TypeAnimation
             sequence={[
-              'AI & ML Engineer',
+              'AI/ML Engineer',
               2000,
-              'Web Developer',
+              'Graphic & Product Designer',
               2000,
               'Data Analyst',
+              2000,
+              'Operations & Startup Executive',
               2000,
             ]}
             wrapper="span"
@@ -51,16 +70,10 @@ const Hero: React.FC = () => {
             repeat={Infinity}
           />
         </p>
-        <p className="rk-tagline">
-          Building intelligent systems and applications that combine AI, machine learning, and web
-          technologies to solve real-world problems.
-        </p>
+        <a href="#contact" className="rk-hero-cta" data-bird-perch>
+          Contact
+        </a>
       </div>
-
-      <a href="#about" className="rk-scroll-hint">
-        <div className="rk-scroll-line" />
-        Scroll
-      </a>
     </section>
   );
 };

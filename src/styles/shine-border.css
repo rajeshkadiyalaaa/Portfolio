@@ -1,0 +1,69 @@
+/* Animated shine border — contact form card (orange + white) */
+
+.rk-shine-border {
+  position: relative;
+  --shine-border-width: 3px;
+  --shine-border-radius: 20px;
+  --shine-duration: 16s;
+  border-radius: var(--shine-border-radius);
+  padding: var(--shine-border-width);
+  overflow: hidden;
+  /* fallback ring visible even if animation is off */
+  background: linear-gradient(
+    135deg,
+    rgba(232, 113, 58, 0.45),
+    rgba(255, 255, 255, 0.85),
+    rgba(240, 137, 90, 0.5)
+  );
+}
+
+/* rotating conic highlight — sits in the padding ring, not behind the card */
+.rk-shine-border::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 220%;
+  height: 220%;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.15) 30deg,
+    rgba(255, 255, 255, 1) 70deg,
+    rgba(255, 230, 210, 0.95) 110deg,
+    rgba(232, 113, 58, 0.95) 150deg,
+    rgba(240, 137, 90, 0.9) 190deg,
+    rgba(255, 255, 255, 0.95) 230deg,
+    rgba(255, 255, 255, 0.2) 280deg,
+    transparent 360deg
+  );
+  animation: rk-shine-rotate var(--shine-duration) linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes rk-shine-rotate {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.rk-shine-border .rk-contact-form-card {
+  position: relative;
+  z-index: 1;
+  color: var(--rk-cream);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-radius: calc(var(--shine-border-radius) - var(--shine-border-width));
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rk-shine-border::before {
+    animation: none;
+    transform: translate(-50%, -50%) rotate(35deg);
+    opacity: 0.7;
+  }
+}

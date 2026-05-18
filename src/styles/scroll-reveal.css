@@ -1,0 +1,42 @@
+/* Scroll reveal — Option B: staggered section entrances */
+
+.rk-reveal {
+  opacity: 0;
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.rk-reveal--up {
+  transform: translateY(28px);
+}
+
+.rk-reveal--left {
+  transform: translateX(-36px);
+}
+
+.rk-reveal--right {
+  transform: translateX(36px);
+}
+
+.rk-reveal--scale {
+  transform: translateY(20px) scale(0.97);
+}
+
+.rk-reveal--visible {
+  opacity: 1;
+  transform: none;
+}
+
+.rk-about-tag-reveal {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rk-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

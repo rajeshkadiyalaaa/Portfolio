@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-
-const NAV_LINKS = [
-  { label: 'Home', href: '#home' },
-  { label: 'About me', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
-];
+import { Bird, Menu, X } from 'lucide-react';
+import { useBirdPreference } from '../../hooks/useBirdPreference';
+import { NAV_LINKS, SOCIAL_LINKS } from '../../data/nav';
 
 const LinkedInIcon = () => (
   <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
@@ -32,30 +27,37 @@ const MailIcon = () => (
 const Navbar: React.FC = () => {
   const [activeLink, setActiveLink] = useState('Home');
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { birdEnabled, toggleBird } = useBirdPreference();
 
   useEffect(() => {
-    const sectionIds = NAV_LINKS.map((link) => link.href.replace('#', ''));
+    const sectionElements = NAV_LINKS.map((link) => {
+      const id = link.href.replace('#', '');
+      return document.getElementById(id);
+    }).filter((el): el is HTMLElement => el !== null);
 
-    const handleScroll = () => {
-      const scrollY = window.scrollY + 120;
-      let current = 'home';
+    if (sectionElements.length === 0) return;
 
-      for (const id of sectionIds) {
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= scrollY) {
-          current = id;
-        }
-      }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
-      const match = NAV_LINKS.find((link) => link.href === `#${current}`);
-      if (match) {
-        setActiveLink(match.label);
-      }
-    };
+        if (visible.length === 0) return;
 
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+        const id = visible[0].target.id;
+        const match = NAV_LINKS.find((link) => link.href === `#${id}`);
+        if (match) setActiveLink(match.label);
+      },
+      {
+        rootMargin: '-42% 0px -48% 0px',
+        threshold: [0, 0.15, 0.35, 0.55, 0.75],
+      },
+    );
+
+    sectionElements.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
   }, []);
 
   const handleNavClick = (label: string) => {
@@ -66,23 +68,23 @@ const Navbar: React.FC = () => {
   return (
     <nav className="rk-nav">
       <div className="rk-nav-icons">
-        <a
-          href="https://www.linkedin.com/in/rajesh-kadiyala"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="LinkedIn"
+        <button
+          type="button"
+          className={`rk-nav-bird-toggle${birdEnabled ? ' rk-nav-bird-toggle--on' : ''}`}
+          onClick={toggleBird}
+          aria-pressed={birdEnabled}
+          aria-label={birdEnabled ? 'Hide companion bird' : 'Show companion bird'}
+          title={birdEnabled ? 'Hide bird' : 'Show bird'}
         >
+          <Bird size={18} strokeWidth={1.75} />
+        </button>
+        <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" title="LinkedIn" data-bird-perch>
           <LinkedInIcon />
         </a>
-        <a
-          href="https://github.com/rajeshkadiyalaaa"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="GitHub"
-        >
+        <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer" title="GitHub" data-bird-perch>
           <GitHubIcon />
         </a>
-        <a href="mailto:rajeshkadiyala2003@gmail.com" title="Email">
+        <a href={SOCIAL_LINKS.email} title="Email" data-bird-perch>
           <MailIcon />
         </a>
       </div>
@@ -94,6 +96,7 @@ const Navbar: React.FC = () => {
             href={link.href}
             className={activeLink === link.label ? 'active' : ''}
             onClick={() => handleNavClick(link.label)}
+            data-bird-perch
           >
             {link.label}
           </a>
@@ -101,10 +104,11 @@ const Navbar: React.FC = () => {
       </div>
 
       <a
-        href="Rajesh_Resume.pdf"
+        href={SOCIAL_LINKS.resume}
         target="_blank"
         rel="noopener noreferrer"
         className="rk-btn-resume"
+        data-bird-perch
       >
         Resume
       </a>
@@ -126,16 +130,18 @@ const Navbar: React.FC = () => {
               href={link.href}
               className={activeLink === link.label ? 'active' : ''}
               onClick={() => handleNavClick(link.label)}
+              data-bird-perch
             >
               {link.label}
             </a>
           ))}
           <a
-            href="Rajesh_Resume.pdf"
+            href={SOCIAL_LINKS.resume}
             target="_blank"
             rel="noopener noreferrer"
             className="rk-btn-resume"
             style={{ width: 'fit-content' }}
+            data-bird-perch
           >
             Resume
           </a>

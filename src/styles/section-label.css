@@ -1,0 +1,44 @@
+/* Shared section eyebrow label (Background, Projects, Contact) */
+
+.rk-section-label-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.rk-section-label-line {
+  width: 48px;
+  height: 1px;
+  background: rgba(26, 26, 26, 0.22);
+  flex-shrink: 0;
+}
+
+.rk-section-label-diamond {
+  width: 7px;
+  height: 7px;
+  background: var(--rk-orange, #e8713a);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.rk-section-label {
+  font-family: 'Cormorant SC', serif;
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--rk-orange, #e8713a);
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .rk-section-label-line {
+    width: 32px;
+  }
+
+  .rk-section-label {
+    font-size: 22px;
+  }
+}

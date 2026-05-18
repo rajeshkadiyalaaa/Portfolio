@@ -1,28 +1,61 @@
-/* Contact section — matches contact.png mockup */
+/* Contact section — form with bottom corner ink-wash art */
 
 .rk-contact {
   position: relative;
+  width: 100%;
   background: var(--rk-cream, #f5f0e8);
-  padding: 100px 48px 80px;
+  padding: var(--rk-section-py) var(--rk-section-px) var(--rk-section-pb);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.rk-contact-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  z-index: 0;
+  pointer-events: none;
   overflow: hidden;
 }
 
-.rk-contact-bg {
+.rk-contact-art__piece {
   position: absolute;
-  inset: 0;
-  background-image: url('/contact-bg.png');
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  z-index: 0;
+  display: block;
+  height: auto;
+  object-fit: contain;
+}
+
+.rk-contact-art__piece--upper-left {
+  top: 0;
+  left: 0;
+  width: min(28vw, 320px);
+  aspect-ratio: 432 / 387;
+  object-position: top left;
+}
+
+.rk-contact-art__piece--down-left {
+  bottom: 0;
+  left: 0;
+  width: min(42vw, 677px);
+  aspect-ratio: 677 / 378;
+  object-position: bottom left;
+}
+
+.rk-contact-art__piece--down-right {
+  bottom: 0;
+  right: 0;
+  width: min(38vw, 462px);
+  aspect-ratio: 462 / 302;
+  object-position: bottom right;
 }
 
 .rk-contact-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  width: 100%;
   max-width: 1100px;
   margin: 0 auto;
+  pointer-events: auto;
 }
 
 .rk-contact-header {
@@ -33,35 +66,6 @@
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
-}
-
-@media (min-width: 901px) {
-  .rk-contact-header {
-    padding-left: 140px;
-  }
-}
-
-.rk-contact-label-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.rk-contact-label-line {
-  width: 48px;
-  height: 1px;
-  background: rgba(26, 26, 26, 0.2);
-}
-
-.rk-contact-label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--rk-orange, #e8713a);
 }
 
 .rk-contact-heading {
@@ -96,7 +100,9 @@
   grid-template-columns: 1fr 1.15fr;
   gap: 48px;
   align-items: start;
-  margin-bottom: 64px;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto 64px;
 }
 
 .rk-contact-info {
@@ -105,8 +111,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   gap: 27px;
-  padding-top: 35px;
-  padding-left: 156px;
+  padding-top: 8px;
 }
 
 .rk-contact-item {
@@ -149,15 +154,6 @@
   line-height: 1.4;
 }
 
-.rk-contact-form-card {
-  color: var(--rk-cream);
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 32px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-}
-
 .rk-contact-form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -178,22 +174,13 @@
   width: 100%;
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
-  color: var(--rk-orange-light, #f0895a);
+  color: var(--rk-dark, #1a1a1a);
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid #abb4b0;
   border-radius: 10px;
   padding: 14px 16px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-#name.rk-contact-input {
-  color: var(--rk-dark, #1a1a1a);
-}
-
-#email.rk-contact-input {
-  color: var(--rk-orange-light);
-  border-color: rgba(0, 0, 0, 1);
 }
 
 .rk-contact-input::placeholder,
@@ -205,6 +192,12 @@
 .rk-contact-textarea:focus {
   border-color: var(--rk-orange, #e8713a);
   box-shadow: 0 0 0 3px rgba(232, 113, 58, 0.12);
+}
+
+.rk-contact-input:focus-visible,
+.rk-contact-textarea:focus-visible {
+  outline: 2px solid var(--rk-orange, #e8713a);
+  outline-offset: 2px;
 }
 
 .rk-contact-input.error,
@@ -288,7 +281,13 @@
   color: rgba(26, 26, 26, 0.5);
 }
 
+.rk-contact-safe svg {
+  color: var(--rk-orange, #e8713a);
+  flex-shrink: 0;
+}
+
 .rk-contact-tagline-wrap {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -308,22 +307,106 @@
   font-weight: 600;
 }
 
+/* Mobile Contact — 900px (matches hero, about, projects, background) */
 @media (max-width: 900px) {
   .rk-contact {
-    padding: 80px 24px 60px;
+    padding: var(--rk-section-py-mobile) var(--rk-section-px-mobile)
+      calc(var(--rk-section-pb-mobile) + 56px);
+  }
+
+  /* Upward motion for side reveals on narrow screens */
+  .rk-contact .rk-reveal--left:not(.rk-reveal--visible) {
+    transform: translateY(28px);
+  }
+
+  /* Smaller art pinned to screen edges */
+  .rk-contact-art__piece--upper-left {
+    top: calc(var(--rk-section-py-mobile) * 0.15);
+    left: calc(-1 * var(--rk-section-px-mobile));
+    width: min(36vw, 132px);
+    opacity: 0.9;
+  }
+
+  .rk-contact-art__piece--down-left {
+    bottom: 0;
+    left: calc(-1 * var(--rk-section-px-mobile));
+    width: min(52vw, 280px);
+    opacity: 0.88;
+  }
+
+  .rk-contact-art__piece--down-right {
+    bottom: 0;
+    right: calc(-1 * var(--rk-section-px-mobile));
+    width: min(44vw, 200px);
+    opacity: 0.88;
   }
 
   .rk-contact-header {
-    padding-left: 0;
+    margin-bottom: 40px;
+    max-width: 100%;
+    padding: 0 4px;
+  }
+
+  .rk-contact-heading {
+    font-size: clamp(28px, 7.2vw, 36px);
+    margin-bottom: 14px;
+    max-width: 18ch;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .rk-contact-heading-line {
     white-space: normal;
   }
 
+  .rk-contact-subtitle {
+    font-size: 15px;
+    max-width: 34ch;
+    line-height: 1.6;
+  }
+
   .rk-contact-body {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: min(100%, 520px);
+    margin-bottom: 32px;
+  }
+
+  .rk-contact-form-slot {
+    order: 1;
+    width: 100%;
+  }
+
+  /* Icon-only row below form — saves vertical space */
+  .rk-contact-info {
+    order: 2;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding-top: 4px;
+    margin: 0;
+  }
+
+  .rk-contact-item {
+    gap: 0;
+  }
+
+  .rk-contact-item > div {
+    display: none;
+  }
+
+  .rk-contact-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .rk-contact-input,
+  .rk-contact-textarea {
+    font-size: 16px;
   }
 
   .rk-contact-form-row {
@@ -335,17 +418,67 @@
     margin-bottom: 16px;
   }
 
+  .rk-shine-border {
+    width: 100%;
+  }
+
   .rk-contact-form-footer {
     flex-direction: column;
     align-items: stretch;
+    margin-top: 4px;
   }
 
   .rk-contact-submit {
     width: 100%;
     text-align: center;
+    font-size: 16px;
+    padding: 15px 24px;
   }
 
   .rk-contact-safe {
     justify-content: center;
+    font-size: 13px;
+  }
+
+  /* Tagline over footer art — scrim for readability */
+  .rk-contact-tagline-wrap {
+    padding-top: 28px;
+    padding-bottom: 8px;
+    margin-top: 8px;
+  }
+
+  .rk-contact-tagline-wrap::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -32%;
+    transform: translateX(-50%);
+    width: min(120%, 420px);
+    height: 160%;
+    background: linear-gradient(
+      to top,
+      rgba(245, 240, 232, 0.97) 0%,
+      rgba(245, 240, 232, 0.82) 38%,
+      rgba(245, 240, 232, 0.35) 68%,
+      transparent 100%
+    );
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .rk-contact-tagline-wrap .rk-section-label-line {
+    position: relative;
+    z-index: 1;
+  }
+
+  .rk-contact-tagline {
+    position: relative;
+    z-index: 1;
+    font-size: 15px;
+    line-height: 1.55;
+    font-weight: 500;
+    color: rgba(26, 26, 26, 0.78);
+    max-width: 30ch;
+    padding: 0 8px;
   }
 }

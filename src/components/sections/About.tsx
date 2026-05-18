@@ -1,53 +1,88 @@
 import React from 'react';
-
-const SKILL_TAGS = [
-  'Python',
-  'TensorFlow',
-  'PyTorch',
-  'Scikit-learn',
-  'Pandas',
-  'NumPy',
-  'SQL',
-  'React',
-  'Flask',
-  'OpenAI API',
-  'Git',
-];
+import { SKILL_TAGS } from '../../data/skills';
+import { WaterRipple } from '../ui/water-ripple';
+import { ScrollReveal } from '../ui/scroll-reveal';
 
 const About: React.FC = () => {
   return (
-    <section id="about" className="rk-about">
+    <section id="about" className="rk-about" data-water-ripple>
+      <WaterRipple />
+
+      {/* Section-level art — frames portrait without sitting in the photo column */}
+      <img
+        src="/background/about_upper_left.png"
+        alt=""
+        className="rk-about-upper-left"
+        width={239}
+        height={199}
+        loading="lazy"
+        decoding="async"
+        aria-hidden
+      />
+      <img
+        src="/background/about_upper_right.png"
+        alt=""
+        className="rk-about-upper-right"
+        width={344}
+        height={368}
+        loading="lazy"
+        decoding="async"
+        aria-hidden
+      />
+
       <div className="rk-about-inner">
-        <div className="rk-about-photo-wrap">
-          <div className="rk-about-photo-ring" aria-hidden />
-          <div className="rk-about-photo">
-            <img src="/profile.png" alt="Rajesh Kadiyala" />
-          </div>
+        <div className="rk-about-visual">
+          <ScrollReveal variant="left" className="rk-about-photo-wrap">
+            <div className="rk-about-photo-inner">
+              <img src="/profile.png" alt="Rajesh Kadiyala" />
+            </div>
+          </ScrollReveal>
         </div>
 
-        <div className="rk-about-content">
-          <p className="rk-about-label">About me</p>
-          <h2 className="rk-about-heading">
-            Building intelligent systems with design, discipline, and precision.
-          </h2>
-          <p className="rk-about-intro">
-            AI Engineer focused on Machine Learning, Generative AI, and intelligent systems.
-          </p>
-          <p className="rk-about-desc">
-            I build products that combine clean design, real-world utility, and technical depth —
-            from AI-powered applications to full-stack systems.
-          </p>
-          <div className="rk-about-tags">
-            {SKILL_TAGS.map((tag) => (
-              <span key={tag} className="rk-about-tag">
-                {tag}
-              </span>
+        <ScrollReveal variant="right" className="rk-about-content">
+          <ScrollReveal as="p" variant="up" delay={0} className="rk-about-label">
+            About me
+          </ScrollReveal>
+          <ScrollReveal as="h2" variant="up" delay={100} className="rk-about-heading">
+            AI Engineer, Product Designer & Creative Problem Solver.
+          </ScrollReveal>
+          <ScrollReveal as="p" variant="up" delay={200} className="rk-about-intro">
+            I build intelligent, user-focused digital experiences that bridge the gap between
+            technical complexity and intuitive design.
+          </ScrollReveal>
+          <ScrollReveal as="p" variant="up" delay={280} className="rk-about-desc">
+            With a strong foundation in AI/ML engineering combined with hands-on startup operations
+            and product thinking, I specialize in transforming raw logic into highly functional
+            tools. Driven by an obsession with high-fidelity execution, I focus on building scalable
+            products that solve real problems and create immediate business value.
+          </ScrollReveal>
+          <div className="rk-about-tags" role="list" aria-label="Technical skills">
+            {SKILL_TAGS.map((tag, index) => (
+              <ScrollReveal
+                key={tag}
+                variant="up"
+                delay={380 + index * 80}
+                className="rk-about-tag-reveal"
+              >
+                <span className="rk-about-tag" role="listitem" data-bird-perch>
+                  {tag}
+                </span>
+              </ScrollReveal>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
       </div>
 
-      <img src="/mountain.svg" alt="" className="rk-about-mountains" aria-hidden />
+      <img
+        src="/about-footer.webp"
+        srcSet="/about-footer-1280.webp 1280w, /about-footer.webp 1920w"
+        sizes="100vw"
+        alt=""
+        className="rk-about-footer"
+        loading="lazy"
+        decoding="async"
+        aria-hidden
+      />
     </section>
   );
 };

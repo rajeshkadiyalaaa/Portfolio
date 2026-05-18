@@ -1,14 +1,34 @@
-import { useEffect, type RefObject } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
+import { REDUCED_MOTION_MQ } from '../lib/layout';
 
-const VIDEO_SRC = '/boat_peddaling.mp4';
+const DESKTOP_VIDEO = '/boat_peddaling.mp4';
+const MOBILE_VIDEO = '/mobile-video-layout.mp4';
+const DESKTOP_POSTER = '/hero-content.png';
+const MOBILE_POSTER = '/hero-mobile-poster.webp';
+export const HERO_MOBILE_MQ = '(max-width: 900px)';
+
 const VISIBILITY_THRESHOLD = 0.35;
 
-function shouldSkipVideo(): boolean {
-  if (typeof window === 'undefined') return false;
+export type HeroMedia = {
+  videoSrc: string;
+  poster: string;
+  isMobile: boolean;
+};
 
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    return true;
+export function getHeroMedia(): HeroMedia {
+  if (typeof window === 'undefined') {
+    return { videoSrc: DESKTOP_VIDEO, poster: DESKTOP_POSTER, isMobile: false };
   }
+  const isMobile = window.matchMedia(HERO_MOBILE_MQ).matches;
+  return {
+    isMobile,
+    videoSrc: isMobile ? MOBILE_VIDEO : DESKTOP_VIDEO,
+    poster: isMobile ? MOBILE_POSTER : DESKTOP_POSTER,
+  };
+}
+
+function shouldSkipVideo(): boolean {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return true;
 
   const connection = (
     navigator as Navigator & {
@@ -24,18 +44,39 @@ function shouldSkipVideo(): boolean {
   return false;
 }
 
-function isHeroVisible(section: HTMLElement): boolean {
-  const rect = section.getBoundingClientRect();
-  const visibleHeight =
-    Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-  return visibleHeight / rect.height >= VISIBILITY_THRESHOLD;
-}
-
 export function useHeroVideoPlayback(
   sectionRef: RefObject<HTMLElement | null>,
-  videoRef: RefObject<HTMLVideoElement | null>
-): boolean {
-  const skipVideo = shouldSkipVideo();
+  videoRef: RefObject<HTMLVideoElement | null>,
+): { skipVideo: boolean; media: HeroMedia } {
+  const [skipVideo, setSkipVideo] = useState(() => shouldSkipVideo());
+  const [media, setMedia] = useState<HeroMedia>(getHeroMedia);
+  const playingRef = useRef(false);
+
+  useEffect(() => {
+    const syncSkip = () => setSkipVideo(shouldSkipVideo());
+    syncSkip();
+
+    const motionMq = window.matchMedia(REDUCED_MOTION_MQ);
+    motionMq.addEventListener('change', syncSkip);
+
+    const connection = (
+      navigator as Navigator & { connection?: EventTarget }
+    ).connection;
+    connection?.addEventListener?.('change', syncSkip);
+
+    return () => {
+      motionMq.removeEventListener('change', syncSkip);
+      connection?.removeEventListener?.('change', syncSkip);
+    };
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia(HERO_MOBILE_MQ);
+    const syncMedia = () => setMedia(getHeroMedia());
+    syncMedia();
+    mq.addEventListener('change', syncMedia);
+    return () => mq.removeEventListener('change', syncMedia);
+  }, []);
 
   useEffect(() => {
     if (skipVideo) return;
@@ -44,36 +85,38 @@ export function useHeroVideoPlayback(
     const video = videoRef.current;
     if (!section || !video) return;
 
-    let playing = false;
-
-    const ensureSource = () => {
-      if (!video.getAttribute('src')) {
-        video.src = VIDEO_SRC;
+    const applySource = () => {
+      if (video.getAttribute('src') !== media.videoSrc) {
+        video.src = media.videoSrc;
+        video.load();
+      }
+      if (video.poster !== media.poster) {
+        video.poster = media.poster;
       }
     };
 
     const setPlaying = (next: boolean) => {
-      if (next === playing) return;
-      playing = next;
+      if (next === playingRef.current) return;
+      playingRef.current = next;
 
       if (next) {
-        ensureSource();
-        if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
-          video.load();
-        }
+        applySource();
+        if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) video.load();
         void video.play().catch(() => {
-          playing = false;
+          playingRef.current = false;
         });
       } else {
         video.pause();
       }
     };
 
+    applySource();
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setPlaying(entry.isIntersecting && entry.intersectionRatio >= VISIBILITY_THRESHOLD);
       },
-      { threshold: [0, VISIBILITY_THRESHOLD, 0.6, 1] }
+      { threshold: [0, VISIBILITY_THRESHOLD, 0.6, 1] },
     );
 
     observer.observe(section);
@@ -81,26 +124,33 @@ export function useHeroVideoPlayback(
     const onVisibilityChange = () => {
       if (document.hidden) {
         video.pause();
-        playing = false;
+        playingRef.current = false;
         return;
       }
-      setPlaying(isHeroVisible(section));
+      const rect = section.getBoundingClientRect();
+      const visibleHeight =
+        Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+      setPlaying(visibleHeight / rect.height >= VISIBILITY_THRESHOLD);
     };
 
     document.addEventListener('visibilitychange', onVisibilityChange);
 
-    if (isHeroVisible(section)) {
-      ensureSource();
-      setPlaying(true);
+    if (section.getBoundingClientRect().height > 0) {
+      const rect = section.getBoundingClientRect();
+      const visibleHeight =
+        Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+      if (visibleHeight / rect.height >= VISIBILITY_THRESHOLD) {
+        setPlaying(true);
+      }
     }
 
     return () => {
       observer.disconnect();
       document.removeEventListener('visibilitychange', onVisibilityChange);
       video.pause();
-      playing = false;
+      playingRef.current = false;
     };
-  }, [sectionRef, videoRef, skipVideo]);
+  }, [sectionRef, videoRef, skipVideo, media.videoSrc, media.poster]);
 
-  return skipVideo;
+  return { skipVideo, media };
 }

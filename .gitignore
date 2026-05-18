@@ -11,13 +11,9 @@
 /dist
 *.local
 
-# design source duplicates (use public/ assets)
-/*.png
-/*.svg
-!public/**
-
 # misc
 .DS_Store
+.bolt/
 .env
 .env.local
 .env.development.local
@@ -30,5 +26,16 @@ yarn-error.log*
 
 # IDE
 .vscode
-.idea 
+.idea
 .vercel
+.env*.local
+
+# scratch / reference notes (not part of the app)
+*.txt
+!README.md
+
+# design duplicates & unused asset folders
+/elements/
+/Project_Previews/
+/public/career/
+carrier.png

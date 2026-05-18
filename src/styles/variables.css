@@ -3,4 +3,13 @@
   --rk-orange-light: #f0895a;
   --rk-cream: #f5f0e8;
   --rk-dark: #1a1a1a;
+  --rk-hero-gradient: linear-gradient(135deg, #f5f0e8 0%, #ede4d4 45%, #d4c8b5 100%);
+
+  /* Unified section spacing */
+  --rk-section-py: 100px;
+  --rk-section-px: 48px;
+  --rk-section-pb: 100px;
+  --rk-section-py-mobile: 80px;
+  --rk-section-px-mobile: 28px;
+  --rk-section-pb-mobile: 80px;
 }

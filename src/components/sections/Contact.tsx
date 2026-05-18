@@ -1,39 +1,11 @@
-import React, { useState } from 'react';
-import {
-  Mail,
-  MapPin,
-  Linkedin,
-  Github,
-  CheckCircle,
-  AlertCircle,
-  ShieldCheck,
-} from 'lucide-react';
-const CONTACT_ITEMS = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'rajeshkadiyala2003@gmail.com',
-    href: 'mailto:rajeshkadiyala2003@gmail.com',
-  },
-  {
-    icon: MapPin,
-    label: 'Location',
-    value: 'Hyderabad, India',
-    href: undefined,
-  },
-  {
-    icon: Linkedin,
-    label: 'LinkedIn',
-    value: 'linkedin.com/in/rajeshkadiyala',
-    href: 'https://www.linkedin.com/in/rajesh-kadiyala',
-  },
-  {
-    icon: Github,
-    label: 'GitHub',
-    value: 'github.com/RajeshKadiyala',
-    href: 'https://github.com/rajeshkadiyalaaa',
-  },
-];
+import React, { useEffect, useRef, useState } from 'react';
+import { CheckCircle, AlertCircle, ShieldCheck } from 'lucide-react';
+import { CONTACT_ITEMS, SOCIAL_LINKS } from '../../data/social';
+import { emitBirdThought } from '../../lib/birdPreference';
+import { WaterRipple } from '../ui/water-ripple';
+import { ShineBorder } from '../ui/shine-border';
+import { ScrollReveal } from '../ui/scroll-reveal';
+import { SectionLabel } from '../ui/section-label';
 
 const Contact: React.FC = () => {
   const [formState, setFormState] = useState({
@@ -52,6 +24,14 @@ const Contact: React.FC = () => {
 
   const [submitting, setSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   const validateForm = () => {
     let valid = true;
@@ -111,44 +91,80 @@ const Contact: React.FC = () => {
         headers: { Accept: 'application/json' },
       });
 
+      if (!mountedRef.current) return;
+
       if (response.ok) {
         setSubmitStatus('success');
+        emitBirdThought('Message delivered.');
         setFormState({ name: '', email: '', subject: '', message: '' });
       } else {
         throw new Error('Form submission failed');
       }
     } catch (error) {
+      if (!mountedRef.current) return;
       console.error('Error submitting form:', error);
       setSubmitStatus('error');
     } finally {
-      setSubmitting(false);
+      if (mountedRef.current) setSubmitting(false);
     }
   };
 
   return (
-    <section id="contact" className="rk-contact">
-      <div className="rk-contact-bg" aria-hidden />
+    <section id="contact" className="rk-contact" data-water-ripple>
+      <div className="rk-contact-art" aria-hidden>
+        <img
+          src="/background/contact_upper_left.png"
+          alt=""
+          className="rk-contact-art__piece rk-contact-art__piece--upper-left"
+          width={432}
+          height={387}
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          src="/background/contact_down_left.png"
+          alt=""
+          className="rk-contact-art__piece rk-contact-art__piece--down-left"
+          width={677}
+          height={378}
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          src="/background/contact_down_right.png"
+          alt=""
+          className="rk-contact-art__piece rk-contact-art__piece--down-right"
+          width={462}
+          height={302}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <WaterRipple />
 
       <div className="rk-contact-inner">
         <header className="rk-contact-header">
-          <div className="rk-contact-label-wrap">
-            <span className="rk-contact-label-line" aria-hidden />
-            <p className="rk-contact-label">Contact me</p>
-            <span className="rk-contact-label-line" aria-hidden />
-          </div>
+          <ScrollReveal variant="up" delay={0}>
+            <SectionLabel>Contact me</SectionLabel>
+          </ScrollReveal>
           <h2 className="rk-contact-heading">
-            <span className="rk-contact-heading-line">Let&apos;s build something</span>
-            <span className="rk-contact-heading-line">intelligent together.</span>
+            <ScrollReveal as="span" variant="up" delay={100} className="rk-contact-heading-line">
+              Let&apos;s build something
+            </ScrollReveal>
+            <ScrollReveal as="span" variant="up" delay={160} className="rk-contact-heading-line">
+              intelligent together.
+            </ScrollReveal>
           </h2>
-          <p className="rk-contact-subtitle">
+          <ScrollReveal as="p" variant="up" delay={220} className="rk-contact-subtitle">
             I&apos;m always open to discussing new opportunities, collaborations, and interesting
             ideas.
-          </p>
+          </ScrollReveal>
         </header>
 
         <div className="rk-contact-body">
           <div className="rk-contact-info">
-            {CONTACT_ITEMS.map((item) => {
+            {CONTACT_ITEMS.map((item, index) => {
               const Icon = item.icon;
               const content = (
                 <>
@@ -163,27 +179,43 @@ const Contact: React.FC = () => {
               );
 
               return item.href ? (
-                <a
+                <ScrollReveal
                   key={item.label}
+                  as="a"
                   href={item.href}
+                  variant="left"
+                  delay={index * 90}
                   className="rk-contact-item"
+                  aria-label={item.label}
+                  title={item.value}
+                  data-bird-perch
                   target={item.href.startsWith('http') ? '_blank' : undefined}
                   rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 >
                   {content}
-                </a>
+                </ScrollReveal>
               ) : (
-                <div key={item.label} className="rk-contact-item">
+                <ScrollReveal
+                  key={item.label}
+                  variant="left"
+                  delay={index * 90}
+                  className="rk-contact-item"
+                  aria-label={item.label}
+                  title={item.value}
+                  data-bird-perch
+                >
                   {content}
-                </div>
+                </ScrollReveal>
               );
             })}
           </div>
 
-          <div className="rk-contact-form-card">
+          <ScrollReveal variant="scale" delay={280} className="rk-contact-form-slot">
+            <ShineBorder>
+            <div className="rk-contact-form-card">
             <form
               onSubmit={handleSubmit}
-              action="https://formsubmit.co/rajeshkadiyala2003@gmail.com"
+              action={SOCIAL_LINKS.formsubmit}
               method="POST"
             >
               <input type="hidden" name="_subject" value="New contact from Portfolio Website" />
@@ -262,7 +294,12 @@ const Contact: React.FC = () => {
               </div>
 
               <div className="rk-contact-form-footer">
-                <button type="submit" className="rk-contact-submit" disabled={submitting}>
+                <button
+                  type="submit"
+                  className="rk-contact-submit"
+                  disabled={submitting}
+                  data-bird-perch
+                >
                   {submitting ? 'Sending...' : 'Send Message →'}
                 </button>
                 <p className="rk-contact-safe">
@@ -271,16 +308,18 @@ const Contact: React.FC = () => {
                 </p>
               </div>
             </form>
-          </div>
+            </div>
+            </ShineBorder>
+          </ScrollReveal>
         </div>
 
-        <div className="rk-contact-tagline-wrap">
-          <span className="rk-contact-label-line" aria-hidden />
+        <ScrollReveal variant="up" delay={120} className="rk-contact-tagline-wrap">
+          <span className="rk-section-label-line" aria-hidden />
           <p className="rk-contact-tagline">
             Let&apos;s <strong>connect</strong> and create meaningful impact through technology.
           </p>
-          <span className="rk-contact-label-line" aria-hidden />
-        </div>
+          <span className="rk-section-label-line" aria-hidden />
+        </ScrollReveal>
       </div>
     </section>
   );

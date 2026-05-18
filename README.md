@@ -1,115 +1,83 @@
-# Modern Developer Portfolio
+# Rajesh Kadiyala — Portfolio
 
-A sleek, responsive portfolio website built with React, TypeScript, and Tailwind CSS. This portfolio features smooth animations, a clean design, and showcases a developer's skills, projects, and contact information.
+Personal portfolio site for **Rajesh Kadiyala**, showcasing AI/ML engineering work, product design, and professional background. Built as a fast, single-page React app with custom CSS, scroll animations, and interactive section effects.
 
-![Portfolio Preview](https://via.placeholder.com/800x400)
+## Overview
 
-## ✨ Features
+The site presents a cohesive narrative across five main areas: an animated hero introduction, an about section with skills, a projects gallery with live PDF previews, a background timeline for education and experience, and a contact form. Visual design uses a warm cream palette, ink-wash decorative artwork, and subtle water-ripple interactions on desktop.
 
-- **Responsive Design**: Looks great on all devices, from mobile to desktop
-- **Modern UI**: Clean, professional design with smooth animations
-- **Interactive Elements**: Type animations, scroll animations, and hover effects
-- **Performance Optimized**: Fast load times and smooth scrolling
-- **Component-Based Architecture**: Maintainable and scalable code structure
-- **Fully Customizable**: Easy to modify content and styling
+## Sections
 
-## 🚀 Sections
+| Section | Description |
+|---------|-------------|
+| **Hero** | Name, rotating role titles, hero artwork, optional background video |
+| **About** | Profile photo, bio, skill tags, mountain/sun and footer art |
+| **Projects** | Project cards with PDF preview thumbnails and links |
+| **Background** | Education & experience timelines with brush-style underlines |
+| **Contact** | Form with animated shine border and social/resume links |
 
-1. **Hero**: Introduction with animated typing effect and social links
-2. **About**: Overview of skills and expertise with animated cards
-3. **Skills**: Technical skills presented in a visually appealing grid
-4. **Projects**: Showcase of featured projects with descriptions and links
-5. **Contact**: Contact form and information for potential clients/employers
-6. **Footer**: Additional links and information
+## Tech stack
 
-## 🛠️ Technologies Used
+- **React 18** + **TypeScript**
+- **Vite** — dev server and production builds
+- **Custom CSS** — section themes, design tokens in `variables.css` (no Tailwind)
+- **pdfjs-dist** — client-side PDF page rendering for project previews
+- **lucide-react** — icons
+- **react-type-animation** — hero title rotation
+- **sharp** — optional WebP asset optimization (`npm run optimize:assets`)
 
-- **Frontend**: React, TypeScript, Tailwind CSS
-- **Animation**: Framer Motion, React Type Animation
-- **Build Tool**: Vite
-- **Icons**: Lucide React
-- **Development**: ESLint, PostCSS
+## Project structure
 
-## 🔧 Getting Started
-
-### Prerequisites
-
-- Node.js (v14.0.0 or later)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/developer-portfolio.git
-   cd developer-portfolio
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-4. Open [http://localhost:5173](http://localhost:5173) in your browser to see the application.
-
-## 🎨 Customization
-
-### Personal Information
-
-Edit the content in the component files to personalize:
-
-- Update your name, title, and description in `Hero.tsx`
-- Modify your skills in `Skills.tsx`
-- Add your projects in `Projects.tsx`
-- Update contact information in `Contact.tsx`
-
-### Styling
-
-- Colors and theme can be adjusted in `tailwind.config.js`
-- Component-specific styles are in their respective files
-- Global styles are in `src/index.css` and `src/styles/animations.css`
-
-## 📦 Build for Production
-
-To create a production build:
-
-```bash
-npm run build
-# or
-yarn build
+```
+├── public/                 # Static assets served as-is (images, PDFs, resume)
+├── assets/source/          # High-res sources for optimize:assets script
+├── scripts/
+│   └── optimize-assets.mjs # Regenerate WebP files in public/
+└── src/
+    ├── components/
+    │   ├── layout/         # Navbar, Footer
+    │   ├── sections/       # Hero, About, Projects, Background, Contact
+    │   ├── projects/       # PDF preview component
+    │   └── ui/             # Shared UI (scroll reveal, water ripple, etc.)
+    ├── data/               # Content: nav, projects, background timeline, contact
+    ├── hooks/              # Hero video and PDF preview logic
+    ├── lib/                # PDF rendering utilities
+    └── styles/             # Global and per-section CSS themes
 ```
 
-The build output will be in the `dist` directory.
+## Getting started
 
-Preview the production build:
+**Requirements:** Node.js 18+ and npm.
 
 ```bash
-npm run preview
-# or
-yarn preview
+npm install
+npm run dev
 ```
 
-## 📝 License
+Open [http://localhost:5173](http://localhost:5173).
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+### Scripts
 
-## 🙏 Acknowledgements
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Start Vite dev server |
+| `npm run build` | Production build → `dist/` |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+| `npm run optimize:assets` | Regenerate WebP from `assets/source/` |
 
-- [Tailwind CSS](https://tailwindcss.com)
-- [React](https://reactjs.org)
-- [Vite](https://vitejs.dev)
-- [Framer Motion](https://www.framer.com/motion/)
-- [Lucide Icons](https://lucide.dev)
+## Customization
+
+- **Copy & links** — `src/data/` (`nav.ts`, `projects.ts`, `background.ts`, `contact.ts`, `skills.ts`)
+- **Section layout** — `src/components/sections/`
+- **Colors & spacing** — `src/styles/variables.css`
+- **Resume** — replace `public/Kadiyala_Rajesh_Resume_2026.pdf`
+- **Project PDFs** — add files under `public/project-previews/` and reference them in `projects.ts`
+
+## Deploy
+
+The app is a static Vite build. Deploy the `dist` folder to Vercel, Netlify, or any static host. `vercel.json` is included for Vercel deployments.
 
 ---
 
-👨‍💻 Designed and developed with ❤️ by [Kadiyala Rajesh] 
+Built by [Kadiyala Rajesh](https://www.linkedin.com/in/rajesh-kadiyala).

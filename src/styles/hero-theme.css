@@ -4,6 +4,7 @@
   position: relative;
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -13,15 +14,27 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: linear-gradient(135deg, #f5f0e8 0%, #ede4d4 45%, #d4c8b5 100%);
+  background: var(--rk-hero-gradient);
   pointer-events: none;
 }
 
-.rk-hero-video,
 .rk-hero-poster {
   position: absolute;
   inset: 0;
   z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-image: url('/hero-content.png');
+  background-size: cover;
+  background-position: left center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.rk-hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   opacity: 1;
   width: 100%;
   height: 100%;
@@ -32,11 +45,8 @@
   backface-visibility: hidden;
 }
 
-.rk-hero-poster {
-  background-image: url('/hero-content.png');
-  background-size: cover;
-  background-position: left center;
-  background-repeat: no-repeat;
+.rk-hero-scrim {
+  display: none;
 }
 
 .rk-hero-content {
@@ -77,6 +87,43 @@
   animation: rkSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
 }
 
+.rk-title span {
+  display: inline-block;
+  min-height: 1.35em;
+}
+
+.rk-hero-cta {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 14px 36px;
+  border-radius: 50px;
+  font-family: 'Cormorant SC', serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  background: var(--rk-orange, #e8713a);
+  box-shadow: 0 6px 20px rgba(232, 113, 58, 0.35);
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+  animation: rkSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.75s both;
+}
+
+.rk-hero-cta:hover {
+  background: var(--rk-orange-light, #f0895a);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(232, 113, 58, 0.42);
+}
+
+.rk-hero-cta:focus-visible {
+  outline: 2px solid var(--rk-dark, #1a1a1a);
+  outline-offset: 3px;
+}
+
 .rk-tagline {
   font-family: 'DM Sans', sans-serif;
   font-size: clamp(16px, 1.8vw, 19px);
@@ -86,43 +133,6 @@
   max-width: 560px;
   line-height: 1.65;
   animation: rkSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
-}
-
-.rk-scroll-hint {
-  position: absolute;
-  bottom: 30px;
-  left: 64px;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: rgba(0, 0, 0, 0.38);
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-family: 'DM Sans', sans-serif;
-  animation: rkFadeIn 1s 0.9s both;
-  transition: color 0.2s;
-}
-
-.rk-scroll-hint:hover {
-  color: var(--rk-orange);
-}
-
-@keyframes rkFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.rk-scroll-line {
-  width: 38px;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.28);
 }
 
 .rk-hero-glow {
@@ -141,15 +151,73 @@
   .rk-hero-video {
     display: none;
   }
+
+  .rk-hero-poster {
+    display: block;
+  }
 }
 
+/* Mobile hero — portrait video, upper-left typography */
 @media (max-width: 900px) {
-  .rk-hero-content {
-    padding: 0 28px;
-    padding-top: 80px;
+  .rk-hero {
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 
-  .rk-scroll-hint {
-    left: 28px;
+  .rk-hero--mobile .rk-hero-poster {
+    background-position: center 42%;
+  }
+
+  .rk-hero--mobile .rk-hero-video {
+    object-position: center 42%;
+  }
+
+  .rk-hero-scrim {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      rgba(245, 240, 232, 0.72) 0%,
+      rgba(245, 240, 232, 0.28) 42%,
+      transparent 68%
+    );
+  }
+
+  .rk-hero-glow {
+    display: none;
+  }
+
+  .rk-hero-content {
+    width: 100%;
+    max-width: none;
+    padding: max(88px, calc(env(safe-area-inset-top, 0px) + 72px)) 28px 48px;
+    box-sizing: border-box;
+  }
+
+  .rk-name {
+    font-size: clamp(48px, 12.5vw, 64px);
+    letter-spacing: -1px;
+    line-height: 0.95;
+  }
+
+  .rk-title {
+    font-size: clamp(17px, 4.6vw, 22px);
+    margin-top: 16px;
+    max-width: 18ch;
+    line-height: 1.35;
+  }
+
+  .rk-title span {
+    min-height: 1.4em;
+  }
+
+  .rk-hero-cta {
+    margin-top: 24px;
+    padding: 13px 32px;
+    font-size: 14px;
+    letter-spacing: 0.18em;
   }
 }

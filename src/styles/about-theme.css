@@ -2,85 +2,116 @@
 
 .rk-about {
   position: relative;
-  background: var(--rk-cream, #f5f0e8);
-  padding: 100px 64px 200px;
+  background: transparent;
+  padding: var(--rk-section-py) var(--rk-section-px) 200px;
   overflow: hidden;
 }
 
-.rk-about-mountains {
+.rk-about-footer {
   position: absolute;
   bottom: 0;
   left: 0;
+  right: 0;
   width: 100%;
   height: auto;
-  max-height: 320px;
-  object-fit: cover;
+  max-height: min(20vh, 200px);
+  object-fit: contain;
   object-position: bottom center;
   pointer-events: none;
   z-index: 0;
 }
 
+.rk-about-visual {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Decorative art — section-level so desktop spans full width; portrait stays clear */
+.rk-about-upper-left,
+.rk-about-upper-right {
+  position: absolute;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rk-about-upper-left {
+  top: 0;
+  left: 0;
+  width: min(26vw, 280px);
+  aspect-ratio: 239 / 199;
+  object-position: top left;
+  opacity: 0.95;
+}
+
+.rk-about-upper-right {
+  top: 0;
+  right: 0;
+  width: min(32vw, 360px);
+  aspect-ratio: 344 / 368;
+  object-position: top right;
+  opacity: 0.98;
+}
+
 .rk-about-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(340px, 420px) 1fr;
+  grid-template-columns: minmax(380px, 420px) 1fr;
   gap: 56px 72px;
   align-items: center;
 }
 
-/* Profile portrait — concentric rings like mockup */
+.rk-about-content {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Profile portrait — vertical oval frame (desktop) */
 .rk-about-photo-wrap {
+  --about-frame-w: 360px;
+  --about-frame-h: 420px;
+
   position: relative;
-  width: 380px;
-  height: 380px;
+  width: var(--about-frame-w);
+  height: var(--about-frame-h);
   flex-shrink: 0;
   justify-self: start;
+  z-index: 2;
 }
 
-.rk-about-photo-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 340px;
-  height: 340px;
-  margin: -170px 0 0 -170px;
+.rk-about-photo-inner {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  border: 1.5px solid rgba(232, 113, 58, 0.4);
-  pointer-events: none;
-  transform: translate(-6%, -10%);
-}
-
-.rk-about-photo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 1;
-  width: 300px;
-  height: 300px;
-  margin: -150px 0 0 -150px;
-  border-radius: 50%;
-  border: 2.5px solid var(--rk-orange, #e8713a);
+  border: 2px solid rgba(242, 104, 53, 0.45);
   overflow: hidden;
-  background: #f0ebe3;
+  background: linear-gradient(165deg, #f2955e 0%, #f2b988 48%, #f2eae4 100%);
   box-shadow:
-    0 0 0 10px rgba(232, 113, 58, 0.08),
-    0 0 48px rgba(232, 113, 58, 0.2),
-    0 20px 50px rgba(232, 113, 58, 0.15);
+    0 0 72px rgba(242, 104, 53, 0.14),
+    0 28px 56px rgba(242, 104, 53, 0.12),
+    inset 0 0 32px rgba(255, 255, 255, 0.12),
+    0 8px 28px rgba(242, 104, 53, 0.18);
 }
 
-.rk-about-photo img {
+.rk-about-photo-inner img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 18%;
+  object-position: 52% 6%;
 }
 
 .rk-about-label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
+  font-family: 'Cormorant SC', serif;
+  font-size: 25px;
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -121,58 +152,145 @@
 .rk-about-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  max-width: 640px;
+  align-items: stretch;
+  gap: clamp(8px, 1.2vw, 12px);
+  width: 100%;
+  max-width: 100%;
+}
+
+.rk-about-tag-reveal {
+  display: contents;
 }
 
 .rk-about-tag {
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
+  font-size: clamp(12px, 1.35vw, 14px);
   font-weight: 500;
-  color: rgba(26, 26, 26, 0.75);
+  color: rgba(26, 26, 26, 0.78);
   background: rgba(0, 0, 0, 0.06);
-  padding: 10px 18px;
+  border: none;
+  padding: clamp(8px, 1.1vw, 10px) clamp(14px, 1.8vw, 18px);
   border-radius: 8px;
-  line-height: 1;
+  line-height: 1.2;
+  white-space: nowrap;
+  flex: 0 1 auto;
+  min-height: 36px;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .rk-about-tag:hover {
+    background: rgba(242, 104, 53, 0.1);
+    color: var(--rk-shine-orange, #f26835);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(242, 104, 53, 0.12);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .rk-about-tag:focus-visible {
+    outline: 2px solid var(--rk-shine-orange, #f26835);
+    outline-offset: 2px;
+  }
+}
+
+/* Mobile About — centered column, circular portrait, 2-col skills */
 @media (max-width: 900px) {
   .rk-about {
-    padding: 80px 28px 160px;
+    padding: var(--rk-section-py-mobile) var(--rk-section-px-mobile) 128px;
   }
 
-  .rk-about-mountains {
-    max-height: 200px;
+  .rk-about-footer {
+    max-height: min(18vh, 120px);
+    opacity: 0.92;
   }
 
   .rk-about-inner {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 36px;
     text-align: center;
   }
 
+  /* Use upward motion for side reveals on narrow screens */
+  .rk-about .rk-reveal--left:not(.rk-reveal--visible),
+  .rk-about .rk-reveal--right:not(.rk-reveal--visible) {
+    transform: translateY(28px);
+  }
+
+  .rk-about-visual {
+    max-width: 320px;
+    margin: 0 auto 8px;
+  }
+
+  /* Smaller art pinned to screen edges — clear of centered portrait */
+  .rk-about-upper-left {
+    top: calc(var(--rk-section-py-mobile) + 12px);
+    left: calc(-1 * var(--rk-section-px-mobile));
+    width: min(34vw, 128px);
+    opacity: 0.9;
+  }
+
+  .rk-about-upper-right {
+    top: calc(var(--rk-section-py-mobile) + 8px);
+    right: calc(-1 * var(--rk-section-px-mobile));
+    width: min(36vw, 136px);
+    opacity: 0.9;
+  }
+
   .rk-about-photo-wrap {
-    width: 280px;
-    height: 280px;
-    margin: 0 auto;
+    --about-frame-w: min(72vw, 280px);
+    --about-frame-h: min(72vw, 280px);
+
+    width: var(--about-frame-w);
+    height: var(--about-frame-h);
+    margin: 12px auto 0;
     justify-self: center;
   }
 
-  .rk-about-photo-ring {
-    width: 252px;
-    height: 252px;
-    margin: -126px 0 0 -126px;
-    transform: translate(-6%, -10%);
+  .rk-about-photo-inner {
+    box-shadow:
+      0 0 0 1px rgba(242, 104, 53, 0.2),
+      0 0 48px rgba(242, 104, 53, 0.22),
+      0 0 96px rgba(242, 104, 53, 0.12),
+      0 16px 40px rgba(242, 104, 53, 0.14);
   }
 
-  .rk-about-photo {
-    width: 220px;
-    height: 220px;
-    margin: -110px 0 0 -110px;
-    box-shadow:
-      0 0 0 8px rgba(232, 113, 58, 0.08),
-      0 0 36px rgba(232, 113, 58, 0.18),
-      0 14px 40px rgba(232, 113, 58, 0.12);
+  .rk-about-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rk-about-label {
+    font-size: 22px;
+    letter-spacing: 0.22em;
+    margin-bottom: 16px;
+  }
+
+  .rk-about-heading {
+    font-size: clamp(28px, 7.2vw, 34px);
+    line-height: 1.22;
+    margin-bottom: 20px;
+    max-width: 20ch;
+  }
+
+  .rk-about-intro {
+    font-size: clamp(15px, 4vw, 17px);
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 14px;
+    max-width: 34ch;
+  }
+
+  .rk-about-desc {
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 28px;
+    max-width: 38ch;
   }
 
   .rk-about-label,
@@ -184,8 +302,31 @@
   }
 
   .rk-about-tags {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    justify-items: stretch;
+  }
+
+  .rk-about-tag-reveal {
+    display: block;
+    min-width: 0;
+  }
+
+  .rk-about-tag {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 10px 12px;
+    font-size: 13px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.055);
   }
 }
