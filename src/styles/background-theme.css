@@ -3,7 +3,7 @@
 .rk-background {
   position: relative;
   width: 100%;
-  background: var(--rk-cream, #f5f0e8);
+  background: var(--rk-cream, #e2d5d5);
   padding: var(--rk-section-py) var(--rk-section-px) var(--rk-section-pb);
   overflow: hidden;
   isolation: isolate;
@@ -93,162 +93,155 @@
   margin: 0 auto;
 }
 
-.rk-background-columns {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 48px 56px;
+/* Alternating career timeline — desktop bar + mobile vertical stack */
+.rk-career-timeline {
+  position: relative;
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-  align-items: center;
-  justify-items: center;
+  padding: 8px 0 16px;
 }
 
-.rk-background-column {
-  width: 100%;
-  max-width: 520px;
-  min-width: 0;
+.rk-career-timeline__track-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 10px;
+  transform: translateY(-50%);
+  background: var(--rk-orange, #e8713a);
+  border-radius: 999px;
+  z-index: 0;
+  pointer-events: none;
 }
 
-.rk-background-column-header {
+.rk-career-timeline__cols {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 28px;
-  width: 100%;
+  align-items: stretch;
+  gap: 6px;
+  position: relative;
+  z-index: 1;
+  min-height: clamp(360px, 42vw, 440px);
 }
 
-.rk-background-column-heading {
+.rk-career-milestone {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.rk-career-milestone__period {
+  display: none;
+}
+
+.rk-career-milestone__axis {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 0;
-  padding-top: 4px;
-  text-align: center;
+  gap: 6px;
+  z-index: 2;
 }
 
-.rk-background-column-heading .rk-brush-underline {
-  margin-top: 6px;
-  margin-left: auto;
-  margin-right: auto;
+.rk-career-milestone__node {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--rk-orange, #e8713a);
+  box-shadow: 0 0 0 4px var(--rk-cream, #e2d5d5);
+  flex-shrink: 0;
 }
 
-.rk-background-column-icon {
+.rk-career-timeline__track-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--rk-dark, #1a1a1a);
+  white-space: nowrap;
+  padding: 2px 6px;
+  background: var(--rk-cream, #e2d5d5);
+  border-radius: 4px;
+}
+
+.rk-career-milestone__body {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 248px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rk-career-milestone--top .rk-career-milestone__body {
+  bottom: calc(50% + 22px);
+  flex-direction: column-reverse;
+}
+
+.rk-career-milestone--bottom .rk-career-milestone__body {
+  top: calc(50% + 22px);
+}
+
+.rk-career-milestone__connector {
+  display: block;
+  width: 2px;
+  height: 28px;
+  background: rgba(26, 26, 26, 0.22);
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.rk-career-milestone__card {
+  width: 100%;
+  padding: 16px 16px 18px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+.rk-career-milestone__icon {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 44px;
   height: 44px;
+  margin: 0 auto 12px;
   border-radius: 50%;
   background: var(--rk-orange, #e8713a);
   color: #fff;
-  flex-shrink: 0;
 }
 
-.rk-background-column-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(22px, 2.4vw, 28px);
-  font-weight: 700;
-  color: var(--rk-dark, #1a1a1a);
-  margin: 0;
-}
-
-.rk-background-timeline {
-  --rk-background-date-col: 96px;
-  --rk-background-track-col: 24px;
-  position: relative;
-  width: 100%;
-}
-
-.rk-background-timeline::before {
-  content: '';
-  position: absolute;
-  left: calc(var(--rk-background-date-col) + var(--rk-background-track-col) / 2 - 1px);
-  top: 8px;
-  bottom: 8px;
-  width: 2px;
-  background: var(--rk-orange, #e8713a);
-  border-radius: 2px;
-}
-
-.rk-background-entry {
-  display: grid;
-  grid-template-columns: calc(var(--rk-background-date-col) + var(--rk-background-track-col)) minmax(0, 1fr);
-  gap: 14px;
-  align-items: start;
-  margin-bottom: 22px;
-}
-
-.rk-background-entry:last-child {
-  margin-bottom: 0;
-}
-
-.rk-background-entry-rail {
-  display: grid;
-  grid-template-columns: var(--rk-background-date-col) var(--rk-background-track-col);
-  align-items: start;
-  padding-top: 20px;
-}
-
-.rk-background-date {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--rk-orange, #e8713a);
-  text-align: right;
-  padding-right: 10px;
-  margin: 0;
-}
-
-.rk-background-node {
-  justify-self: center;
-  width: 12px;
-  height: 12px;
-  margin-top: 2px;
-  border-radius: 50%;
-  background: var(--rk-orange, #e8713a);
-  box-shadow: 0 0 0 3px var(--rk-cream, #f5f0e8);
-  position: relative;
-  z-index: 1;
-  flex-shrink: 0;
-}
-
-.rk-background-card {
-  padding: 18px 18px 18px 20px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  border-radius: 14px;
-  box-shadow:
-    0 1px 2px rgba(26, 26, 26, 0.04),
-    0 8px 24px rgba(26, 26, 26, 0.06);
-  backdrop-filter: blur(6px);
-}
-
-.rk-background-card-title {
+.rk-career-milestone__title {
   font-family: 'Playfair Display', serif;
   font-size: 15px;
   font-weight: 700;
   line-height: 1.35;
   color: var(--rk-dark, #1a1a1a);
   margin: 0 0 6px;
+  text-align: center;
 }
 
-.rk-background-card-org {
+.rk-career-milestone__org {
   font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--rk-dark, #1a1a1a);
   margin: 0 0 8px;
+  text-align: center;
 }
 
-.rk-background-card-desc {
+.rk-career-milestone__desc {
   font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   line-height: 1.55;
   color: rgba(26, 26, 26, 0.62);
   margin: 0;
+  text-align: center;
 }
 
 /* Mobile Background — 900px (matches hero, about, projects, nav) */
@@ -303,107 +296,117 @@
     opacity: 0.88;
   }
 
-  .rk-background-columns {
-    grid-template-columns: 1fr;
-    gap: 44px;
+  /* Career timeline — vertical stack with left rail */
+  .rk-career-timeline {
     max-width: min(100%, 520px);
+    padding: 0 0 8px;
   }
 
-  .rk-background-column {
-    max-width: 100%;
+  .rk-career-timeline__track-bar {
+    display: none;
   }
 
-  .rk-background-column-header {
-    margin-bottom: 24px;
+  .rk-career-timeline__cols {
+    flex-direction: column;
+    gap: 0;
+    min-height: 0;
+    padding-left: 4px;
   }
 
-  .rk-background-column-title {
-    font-size: clamp(20px, 5.2vw, 24px);
+  .rk-career-timeline__cols::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: var(--rk-orange, #e8713a);
+    border-radius: 2px;
+    z-index: 0;
   }
 
-  .rk-background-timeline {
-    --rk-background-track-col: 22px;
+  .rk-career-milestone {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 0 12px;
+    padding: 0 0 24px;
+    flex: none;
+    width: 100%;
+    min-height: 0;
   }
 
-  .rk-background-timeline::before {
-    left: calc(var(--rk-background-track-col) / 2 - 1px);
+  .rk-career-milestone:last-child {
+    padding-bottom: 4px;
   }
 
-  /* Date stacked above card; node + line beside card */
-  .rk-background-entry {
-    grid-template-columns: var(--rk-background-track-col) minmax(0, 1fr);
-    gap: 8px 12px;
-    margin-bottom: 20px;
-    align-items: start;
-  }
-
-  .rk-background-entry-rail {
-    display: contents;
-  }
-
-  .rk-background-date {
+  .rk-career-milestone__period {
+    display: block;
     grid-column: 2;
     grid-row: 1;
-    text-align: left;
-    padding: 0 0 4px;
+    font-family: 'DM Sans', sans-serif;
     font-size: 12px;
+    font-weight: 600;
     line-height: 1.4;
+    color: var(--rk-orange, #e8713a);
+    margin: 0 0 6px;
   }
 
-  .rk-background-node {
+  .rk-career-milestone__axis {
+    position: static;
+    transform: none;
     grid-column: 1;
-    grid-row: 2;
-    width: 11px;
-    height: 11px;
-    margin-top: 18px;
-    justify-self: center;
+    grid-row: 1 / span 2;
+    align-self: start;
+    padding-top: 22px;
+    gap: 0;
   }
 
-  .rk-background-card {
+  .rk-career-milestone__node {
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 0 0 3px var(--rk-cream, #e2d5d5);
+  }
+
+  .rk-career-timeline__track-label {
+    display: none;
+  }
+
+  .rk-career-milestone__body {
+    position: static;
+    transform: none;
     grid-column: 2;
     grid-row: 2;
-    padding: 14px 16px;
-    background: rgba(255, 255, 255, 0.88);
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .rk-background-card-title {
+  .rk-career-milestone__connector {
+    display: none;
+  }
+
+  .rk-career-milestone__card {
+    padding: 14px 16px 16px;
+  }
+
+  .rk-career-milestone__title {
     font-size: 16px;
+    text-align: left;
   }
 
-  .rk-background-card-org {
+  .rk-career-milestone__org,
+  .rk-career-milestone__desc {
+    text-align: left;
+  }
+
+  .rk-career-milestone__org {
     font-size: 13px;
   }
 
-  .rk-background-card-desc {
-    font-size: 12px;
-    line-height: 1.55;
+  .rk-career-milestone__icon {
+    margin: 0 0 10px;
+    width: 40px;
+    height: 40px;
   }
-
-  .rk-background-column:last-child .rk-background-timeline {
-    padding-bottom: 8px;
-  }
-}
-
-/* Brush underline — tapered ink stroke with center dot */
-.rk-brush-underline {
-  display: block;
-  width: min(168px, 72%);
-  height: 14px;
-  color: rgba(120, 78, 48, 0.62);
-}
-
-.rk-brush-underline--center {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.rk-brush-underline--start {
-  margin-left: 0;
-  margin-right: auto;
-}
-
-.rk-brush-underline__svg {
-  display: block;
-  width: 100%;
-  height: 100%;
 }

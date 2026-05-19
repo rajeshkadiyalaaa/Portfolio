@@ -1,12 +1,8 @@
 import { useCallback, useLayoutEffect, useRef, type RefObject } from 'react';
-import { MOBILE_LAYOUT_MQ } from '../lib/layout';
+import { MOBILE_LAYOUT_MQ, prefersReducedMotion } from '../lib/layout';
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const ease = (x: number) => (x < 0.5 ? 8 * x ** 4 : 1 - (-2 * x + 2) ** 4 / 2);
-
-function prefersReducedMotion(): boolean {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
 
 function computeFocus(scrollEl: HTMLElement, node: HTMLElement): number {
   const cRect = scrollEl.getBoundingClientRect();

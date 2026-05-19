@@ -1,9 +1,9 @@
-/* Water ripple overlay — Hero, About, Projects, Contact */
+/* Water ripple — below section content (decorative interaction, not a haze layer) */
 
 .rk-water-ripple {
   position: absolute;
   inset: 0;
-  z-index: 5;
+  z-index: var(--rk-layer-ripple, 1);
   pointer-events: none;
   overflow: hidden;
 }

@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
+import { prefersReducedMotion } from '../lib/layout';
 
 const DEFAULT_MS = 32;
-
-function prefersReducedMotion(): boolean {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
 
 /** Reveals `text` character-by-character; skips animation when `instant` is true. */
 export function useBirdTypewriter(text: string | null, instant = false) {

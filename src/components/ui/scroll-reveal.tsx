@@ -9,6 +9,7 @@ import {
   type ElementType,
   type ReactNode,
 } from 'react';
+import { prefersReducedMotion } from '../../lib/layout';
 
 export type RevealVariant = 'up' | 'left' | 'right' | 'scale';
 
@@ -26,10 +27,6 @@ type ScrollRevealProps = {
   'aria-label'?: string;
   title?: string;
 };
-
-function prefersReducedMotion(): boolean {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
 
 export function ScrollReveal({
   children,

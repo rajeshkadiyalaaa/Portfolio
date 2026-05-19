@@ -183,14 +183,6 @@ export function unregisterWaterSurface(id: number): void {
   if (surfaces.size === 0) stopLoop();
 }
 
-export function clearWaterSurfaces(): void {
-  for (const surface of surfaces.values()) {
-    surface.ripples.length = 0;
-    surface.ctx.clearRect(0, 0, surface.size.width, surface.size.height);
-  }
-  stopLoop();
-}
-
 export function spawnWaterRipple(
   id: number,
   clientX: number,

@@ -14,7 +14,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: var(--rk-hero-gradient);
+  background: var(--rk-cream, #e2d5d5);
   pointer-events: none;
 }
 
@@ -92,36 +92,47 @@
   min-height: 1.35em;
 }
 
+/* CTA link — orange with arrow */
 .rk-hero-cta {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin-top: 28px;
-  padding: 14px 36px;
-  border-radius: 50px;
+  padding: 0 0 3px;
   font-family: 'Cormorant SC', serif;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
   text-decoration: none;
-  color: #fff;
-  background: var(--rk-orange, #e8713a);
-  box-shadow: 0 6px 20px rgba(232, 113, 58, 0.35);
-  transition:
-    background 0.2s ease,
-    transform 0.15s ease,
-    box-shadow 0.2s ease;
+  color: var(--rk-orange, #e8713a);
+  position: relative;
+  background: none;
+  border: none;
+  box-shadow: none;
+  transition: color 0.2s ease, gap 0.2s ease;
   animation: rkSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.75s both;
 }
 
+.rk-hero-cta__arrow {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
 .rk-hero-cta:hover {
-  background: var(--rk-orange-light, #f0895a);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(232, 113, 58, 0.42);
+  color: var(--rk-dark, #1a1a1a);
+  transform: none;
+  box-shadow: none;
+  gap: 12px;
+}
+
+.rk-hero-cta:hover .rk-hero-cta__arrow {
+  transform: translateX(3px);
 }
 
 .rk-hero-cta:focus-visible {
-  outline: 2px solid var(--rk-dark, #1a1a1a);
-  outline-offset: 3px;
+  outline: 2px solid var(--rk-orange, #e8713a);
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 .rk-tagline {
@@ -180,8 +191,8 @@
     pointer-events: none;
     background: linear-gradient(
       105deg,
-      rgba(245, 240, 232, 0.72) 0%,
-      rgba(245, 240, 232, 0.28) 42%,
+      rgba(226, 213, 213, 0.72) 0%,
+      rgba(226, 213, 213, 0.28) 42%,
       transparent 68%
     );
   }
@@ -216,8 +227,6 @@
 
   .rk-hero-cta {
     margin-top: 24px;
-    padding: 13px 32px;
-    font-size: 14px;
-    letter-spacing: 0.18em;
+    font-size: clamp(18px, 4.5vw, 20px);
   }
 }

@@ -32,7 +32,7 @@ function App() {
         </ErrorBoundary>
         <ErrorBoundary
           title="Projects section unavailable"
-          message="Project previews failed to load. Try again or view projects on GitHub."
+          message="The projects section could not be displayed. Try again or view projects on GitHub."
           compact
         >
           <Projects />

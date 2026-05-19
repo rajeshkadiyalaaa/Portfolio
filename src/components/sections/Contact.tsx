@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { CheckCircle, AlertCircle, ShieldCheck } from 'lucide-react';
 import { CONTACT_ITEMS, EMAIL, SOCIAL_LINKS } from '../../data/social';
 import { emitBirdThought } from '../../lib/birdPreference';
+import { playSubmitSuccessSound } from '../../lib/playSubmitSuccessSound';
 import {
   getContactSubmitErrorMessage,
   isContactFormConfigured,
@@ -100,6 +101,7 @@ const Contact: React.FC = () => {
 
       if (result.ok) {
         setSubmitStatus('success');
+        playSubmitSuccessSound();
         emitBirdThought('Message delivered.');
         setFormState({ name: '', email: '', subject: '', message: '' });
       } else {
@@ -173,8 +175,8 @@ const Contact: React.FC = () => {
             </ScrollReveal>
           </h2>
           <ScrollReveal as="p" variant="up" delay={220} className="rk-contact-subtitle">
-            I&apos;m always open to discussing new opportunities, collaborations, and interesting
-            ideas.
+            If you&apos;re building something at the intersection of AI and real product engineering,
+            I&apos;d like to hear about it.
           </ScrollReveal>
         </header>
 

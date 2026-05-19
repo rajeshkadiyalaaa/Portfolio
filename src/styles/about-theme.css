@@ -2,7 +2,7 @@
 
 .rk-about {
   position: relative;
-  background: transparent;
+  background: var(--rk-cream, #e2d5d5);
   padding: var(--rk-section-py) var(--rk-section-px) 200px;
   overflow: hidden;
 }

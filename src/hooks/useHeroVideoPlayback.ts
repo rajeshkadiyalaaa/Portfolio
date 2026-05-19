@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState, type RefObject } from 'react';
-import { REDUCED_MOTION_MQ } from '../lib/layout';
+import { MOBILE_LAYOUT_MQ, REDUCED_MOTION_MQ } from '../lib/layout';
 
 const DESKTOP_VIDEO = '/boat_peddaling.mp4';
 const MOBILE_VIDEO = '/mobile-video-layout.mp4';
 const DESKTOP_POSTER = '/hero-content.png';
 const MOBILE_POSTER = '/hero-mobile-poster.webp';
-export const HERO_MOBILE_MQ = '(max-width: 900px)';
-
 const VISIBILITY_THRESHOLD = 0.35;
 
 export type HeroMedia = {
@@ -19,7 +17,7 @@ export function getHeroMedia(): HeroMedia {
   if (typeof window === 'undefined') {
     return { videoSrc: DESKTOP_VIDEO, poster: DESKTOP_POSTER, isMobile: false };
   }
-  const isMobile = window.matchMedia(HERO_MOBILE_MQ).matches;
+  const isMobile = window.matchMedia(MOBILE_LAYOUT_MQ).matches;
   return {
     isMobile,
     videoSrc: isMobile ? MOBILE_VIDEO : DESKTOP_VIDEO,
@@ -71,7 +69,7 @@ export function useHeroVideoPlayback(
   }, []);
 
   useEffect(() => {
-    const mq = window.matchMedia(HERO_MOBILE_MQ);
+    const mq = window.matchMedia(MOBILE_LAYOUT_MQ);
     const syncMedia = () => setMedia(getHeroMedia());
     syncMedia();
     mq.addEventListener('change', syncMedia);

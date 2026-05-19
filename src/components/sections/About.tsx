@@ -44,17 +44,14 @@ const About: React.FC = () => {
             About me
           </ScrollReveal>
           <ScrollReveal as="h2" variant="up" delay={100} className="rk-about-heading">
-            AI Engineer, Product Designer & Creative Problem Solver.
+            Generalist Engineer... 
           </ScrollReveal>
           <ScrollReveal as="p" variant="up" delay={200} className="rk-about-intro">
-            I build intelligent, user-focused digital experiences that bridge the gap between
-            technical complexity and intuitive design.
+          Full-stack AI engineer specializing in Computer Vision, NLP, and production web applications. Based in Vijayawada, India.
           </ScrollReveal>
           <ScrollReveal as="p" variant="up" delay={280} className="rk-about-desc">
-            With a strong foundation in AI/ML engineering combined with hands-on startup operations
-            and product thinking, I specialize in transforming raw logic into highly functional
-            tools. Driven by an obsession with high-fidelity execution, I focus on building scalable
-            products that solve real problems and create immediate business value.
+          I work at the intersection of machine learning and product engineering. On one side: training deep learning pipelines for real detection and classification problems. 
+          On the other: building the interfaces and backend systems that make those models useful to actual people.
           </ScrollReveal>
           <div className="rk-about-tags" role="list" aria-label="Technical skills">
             {SKILL_TAGS.map((tag, index) => (

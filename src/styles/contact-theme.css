@@ -3,7 +3,7 @@
 .rk-contact {
   position: relative;
   width: 100%;
-  background: var(--rk-cream, #f5f0e8);
+  background: var(--rk-cream, #e2d5d5);
   padding: var(--rk-section-py) var(--rk-section-px) var(--rk-section-pb);
   overflow: hidden;
   isolation: isolate;
@@ -480,9 +480,9 @@
     height: 160%;
     background: linear-gradient(
       to top,
-      rgba(245, 240, 232, 0.97) 0%,
-      rgba(245, 240, 232, 0.82) 38%,
-      rgba(245, 240, 232, 0.35) 68%,
+      rgba(226, 213, 213, 0.97) 0%,
+      rgba(226, 213, 213, 0.82) 38%,
+      rgba(226, 213, 213, 0.35) 68%,
       transparent 100%
     );
     z-index: 0;

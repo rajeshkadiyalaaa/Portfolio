@@ -1,6 +1,6 @@
 # Rajesh Kadiyala — Portfolio
 
-Personal portfolio for **Rajesh Kadiyala** — AI/ML engineering, product work, and background. Single-page React app with custom CSS, scroll animations, PDF project previews, a roaming page bird, and water-ripple effects.
+Personal portfolio for **Rajesh Kadiyala** — AI/ML engineering, product work, and background. Single-page React app with custom CSS, scroll animations, PNG project previews, a roaming page bird, and water-ripple effects.
 
 **Live site:** [portfolio-rajeshkadiyalaaas-projects.vercel.app](https://portfolio-rajeshkadiyalaaas-projects.vercel.app/) (Vercel, deploys from `master`)
 
@@ -10,8 +10,8 @@ Personal portfolio for **Rajesh Kadiyala** — AI/ML engineering, product work, 
 |------|------------|
 | **Hero** | Rotating titles, hero art, desktop + mobile background video |
 | **About** | Profile, skills, section ink-wash art |
-| **Projects** | Carousel with focus card, lazy PDF previews |
-| **Background** | Education & experience timeline |
+| **Projects** | Carousel with focus card and PNG preview images |
+| **Background** | Alternating career timeline |
 | **Contact** | Web3Forms, shine border, social + resume links |
 | **Effects** | Lottie page bird, water ripples (desktop + mobile), scroll reveals |
 
@@ -21,7 +21,6 @@ Mobile layout activates at **900px** (`MOBILE_LAYOUT_MQ` in `src/lib/layout.ts`)
 
 - **React 18** + **TypeScript** + **Vite**
 - **Custom CSS** — design tokens in `src/styles/variables.css` (no Tailwind)
-- **pdfjs-dist** — client-side PDF previews
 - **@lottiefiles/dotlottie-react** — page bird animation
 - **lucide-react** — icons
 - **react-type-animation** — hero title rotation
@@ -31,23 +30,25 @@ Mobile layout activates at **900px** (`MOBILE_LAYOUT_MQ` in `src/lib/layout.ts`)
 ## Project structure
 
 ```
-├── public/                      # Static assets (images, videos, PDFs, Lottie)
+├── public/                      # Static assets (images, videos, Lottie, resume)
 │   ├── background/              # Section corner PNG art
-│   └── project-previews/        # Project PDFs for carousel
+│   └── Project_Images/          # Project card preview PNGs
 ├── assets/source/               # High-res sources for optimize:assets
+├── docs/                        # Content reference (optional)
 ├── scripts/
 │   ├── optimize-assets.mjs      # Regenerate WebP in public/
 │   └── generate-hero-mobile-poster.mjs
 └── src/
     ├── components/
+    │   ├── background/          # CareerAlternatingTimeline
     │   ├── effects/             # PageBird, BirdThought
     │   ├── layout/              # Navbar, Footer
-    │   ├── projects/            # ProjectCarousel, ProjectPdfPreview
+    │   ├── projects/            # ProjectCarousel
     │   ├── sections/            # Hero, About, Projects, Background, Contact
     │   └── ui/                  # ScrollReveal, WaterRipple, ErrorBoundary, …
     ├── data/                    # Content (nav, projects, skills, social, bird copy)
-    ├── hooks/                   # Bird, carousel, hero video, motion, PDF
-    ├── lib/                     # Layout helpers, PDF render, contact submit, water engine
+    ├── hooks/                   # Bird, carousel, hero video, motion
+    ├── lib/                     # Layout helpers, contact submit, water engine, preload
     └── styles/                  # Global + per-section themes
 ```
 
@@ -78,8 +79,8 @@ Open [http://localhost:5173](http://localhost:5173).
 | What | Where |
 |------|--------|
 | Nav links | `src/data/nav.ts` |
-| Projects & PDF paths | `src/data/projects.ts` |
-| Timeline (education / jobs) | `src/data/background.ts` |
+| Projects & preview images | `src/data/projects.ts` |
+| Career timeline | `src/data/background.ts` |
 | Skills | `src/data/skills.ts` |
 | Email, GitHub, contact row, resume | `src/data/social.ts` |
 | Bird speech lines | `src/data/bird-thoughts.ts` |

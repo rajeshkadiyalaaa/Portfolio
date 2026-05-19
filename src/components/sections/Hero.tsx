@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 import { TypeAnimation } from 'react-type-animation';
 import { useHeroVideoPlayback } from '../../hooks/useHeroVideoPlayback';
 import { WaterRipple } from '../ui/water-ripple';
@@ -71,7 +72,8 @@ const Hero: React.FC = () => {
           />
         </p>
         <a href="#contact" className="rk-hero-cta" data-bird-perch>
-          Contact
+          Let&apos;s Talk
+          <ArrowRight className="rk-hero-cta__arrow" size={20} strokeWidth={2} aria-hidden />
         </a>
       </div>
     </section>

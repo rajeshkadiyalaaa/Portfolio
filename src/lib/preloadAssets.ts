@@ -2,7 +2,7 @@
  * Preload critical portfolio assets (no PDFs) before first paint of the main app.
  */
 
-import { HERO_MOBILE_MQ } from '../hooks/useHeroVideoPlayback';
+import { MOBILE_LAYOUT_MQ } from './layout';
 
 export type PreloadProgress = {
   /** Snapped to 10, 20, … 100 */
@@ -30,6 +30,11 @@ const IMAGE_URLS = [
   '/background/contact_upper_left.png',
   '/background/contact_down_left.png',
   '/background/contact_down_right.png',
+  '/Project_Images/Assistant.png',
+  '/Project_Images/Dental_caries.png',
+  '/Project_Images/image_style_Transfer.png',
+  '/Project_Images/MCQS.png',
+  '/Project_Images/Point of sale.png',
 ] as const;
 
 const LOTTIE_URL = '/Black_bird.lottie';
@@ -124,13 +129,13 @@ function preloadFonts(): Promise<void> {
 
 function getHeroVideoUrl(): string {
   if (typeof window === 'undefined') return '/boat_peddaling.mp4';
-  return window.matchMedia(HERO_MOBILE_MQ).matches
+  return window.matchMedia(MOBILE_LAYOUT_MQ).matches
     ? '/mobile-video-layout.mp4'
     : '/boat_peddaling.mp4';
 }
 
 /** Build preload task list for the current viewport (hero video matches mobile/desktop). */
-export function buildPreloadTasks(): Array<() => Promise<void>> {
+function buildPreloadTasks(): Array<() => Promise<void>> {
   const heroVideo = getHeroVideoUrl();
   const wrap = (fn: () => Promise<void>) => () =>
     withTimeout(fn(), PER_TASK_TIMEOUT_MS).catch(() => undefined);
@@ -146,7 +151,7 @@ export function buildPreloadTasks(): Array<() => Promise<void>> {
 /**
  * Run all preload tasks; reports 10%–100% progress. Resolves even if some assets fail.
  */
-export async function preloadPortfolioAssets(
+async function preloadPortfolioAssets(
   onProgress?: ProgressCallback,
 ): Promise<void> {
   const tasks = buildPreloadTasks();

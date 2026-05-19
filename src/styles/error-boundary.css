@@ -10,7 +10,7 @@
   min-height: 100vh;
   min-height: 100dvh;
   padding: 48px 28px;
-  background: var(--rk-cream, #f5f0e8);
+  background: var(--rk-cream, #e2d5d5);
   box-sizing: border-box;
 }
 

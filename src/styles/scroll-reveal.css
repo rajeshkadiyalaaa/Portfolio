@@ -1,10 +1,13 @@
-/* Scroll reveal — Option B: staggered section entrances */
+/* Scroll reveal — staggered section entrances */
 
 .rk-reveal {
   opacity: 0;
   transition:
     opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rk-reveal:not(.rk-reveal--visible) {
   will-change: opacity, transform;
 }
 
@@ -38,5 +41,6 @@
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+    will-change: auto !important;
   }
 }

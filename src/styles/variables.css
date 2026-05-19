@@ -1,8 +1,18 @@
 :root {
   --rk-orange: #e8713a;
   --rk-orange-light: #f0895a;
-  --rk-cream: #f5f0e8;
+  --rk-cream: #e2d5d5;
+  --rk-cream-rgb: 226, 213, 213;
   --rk-dark: #1a1a1a;
+  --rk-text-muted: rgba(26, 26, 26, 0.72);
+  --rk-text-secondary: rgba(26, 26, 26, 0.78);
+  --rk-text-soft: rgba(26, 26, 26, 0.55);
+
+  /* Section layering — art below ripples below interactive content */
+  --rk-layer-art: 0;
+  --rk-layer-ripple: 1;
+  --rk-layer-content: 2;
+  --rk-layer-chrome: 4;
   --rk-orange-gradient: linear-gradient(
     165deg,
     #fad4b8 0%,

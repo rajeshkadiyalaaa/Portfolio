@@ -1,6 +1,4 @@
 import React, {
-  lazy,
-  Suspense,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -14,12 +12,6 @@ import {
   getScrollTargetForSlot,
   smoothScrollTo,
 } from '../../lib/carouselScroll';
-
-const ProjectPdfPreview = lazy(() => import('./ProjectPdfPreview'));
-
-const PdfPreviewFallback = () => (
-  <div className="rk-project-pdf-preview rk-project-pdf-preview--loading" aria-hidden />
-);
 
 const REPEAT = 3;
 const MIDDLE_COPY = 1;
@@ -47,7 +39,6 @@ type CarouselCardProps = {
   item: CarouselItem;
   registerNode: (slot: number, node: HTMLElement | null) => void;
   onCardClick: (realIndex: number, githubUrl?: string) => void;
-  loadPdf: boolean;
   isCenter: boolean;
 };
 
@@ -55,12 +46,9 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
   item,
   registerNode,
   onCardClick,
-  loadPdf,
   isCenter,
 }) => {
   const ref = useRef<HTMLElement>(null);
-  const Icon = item.icon;
-  const hasPdf = Boolean(item.previewPdf);
   const realIdx = item.slot % COUNT;
 
   useLayoutEffect(() => {
@@ -85,22 +73,15 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
       aria-label={item.title}
     >
       <div
-        className={`rk-project-card-media ${item.previewClass}${
-          hasPdf ? ' rk-project-card-media--pdf' : ''
-        }`}
+        className="rk-project-card-media rk-project-card-media--image"
       >
-        {item.previewPdf && loadPdf ? (
-          <Suspense fallback={<PdfPreviewFallback />}>
-            <ProjectPdfPreview src={item.previewPdf} />
-          </Suspense>
-        ) : null}
-        <div
-          className={`rk-project-card-media-inner${
-            hasPdf ? ' rk-project-card-media-inner--fallback' : ''
-          }`}
-        >
-          <Icon size={48} strokeWidth={1.25} color="rgba(232, 113, 58, 0.42)" />
-        </div>
+        <img
+          src={item.previewImage}
+          alt=""
+          className="rk-project-card-preview-img"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <div className="rk-project-card-body">
         <h3 className="rk-project-card-title">{item.title}</h3>
@@ -302,7 +283,6 @@ const ProjectCarousel: React.FC = () => {
               item={item}
               registerNode={registerNode}
               onCardClick={handleCardClick}
-              loadPdf={idx === activeIndex}
               isCenter={idx === activeIndex}
             />
           );
