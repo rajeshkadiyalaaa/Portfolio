@@ -107,7 +107,8 @@
   width: 100%;
   padding: 24px max(16px, calc((100% - 1200px) / 2 + 16px)) 32px;
   cursor: grab;
-  touch-action: pan-x pinch-zoom;
+  /* pan-y so vertical page scroll works when touch starts on the track (mobile) */
+  touch-action: pan-x pan-y pinch-zoom;
 }
 
 .rk-projects-carousel-track::-webkit-scrollbar {
@@ -547,7 +548,6 @@
 
   .rk-projects-carousel-track {
     --rk-carousel-card-w: min(90vw, 300px);
-    touch-action: pan-x pinch-zoom;
     scroll-snap-type: x mandatory;
     padding: 16px calc((100% - var(--rk-carousel-card-w)) / 2) 24px;
     gap: 16px;
@@ -557,6 +557,12 @@
     flex: 0 0 var(--rk-carousel-card-w);
     width: var(--rk-carousel-card-w);
     scroll-snap-align: center;
+  }
+
+  /* PDF / media sit above the track — allow vertical page scroll on touch */
+  .rk-project-card-media,
+  .rk-project-pdf-preview {
+    touch-action: pan-x pan-y pinch-zoom;
   }
 
   .rk-projects-carousel-arrow {
