@@ -30,11 +30,20 @@ yarn-error.log*
 .vercel
 .env*.local
 
-# scratch / reference notes (not part of the app)
+# scratch notes (not part of the app)
 *.txt
 !README.md
 
-# design duplicates & unused asset folders
+# local design exports — keep canonical copies in public/
+/background/
+*.jsx
+!eslint.config.js
+bird_Thoughts.md
+*_left_upper.png
+*_About*.png
+mobile_Video_layout.mp4
+
+# legacy / unused asset paths
 /elements/
 /Project_Previews/
 /public/career/

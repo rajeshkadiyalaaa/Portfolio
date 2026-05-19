@@ -1,6 +1,4 @@
-/**
- * Bird thought lines — sourced from bird_Thoughts.md
- */
+/** Bird thought lines shown in the page bird speech bubble. */
 
 export type BirdMood = 'roam' | 'land' | 'flee' | 'greeting';
 
@@ -75,7 +73,7 @@ const FLEE_THOUGHTS: string[] = [
 
 const LAND_GENERIC: string[] = [
   'Nice spot to rest.',
-  'Comfy perch.',
+  'Let me rest here.',
   'Taking a quiet break…',
 ];
 

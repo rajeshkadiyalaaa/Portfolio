@@ -13,12 +13,6 @@ const source = path.join(root, 'assets/source');
 
 const jobs = [
   {
-    in: 'mountain-sun.png',
-    outs: [
-      { file: 'public/mountain-sun.webp', width: 480 },
-    ],
-  },
-  {
     in: 'about-footer.png',
     outs: [
       { file: 'public/about-footer.webp', width: 1920 },
