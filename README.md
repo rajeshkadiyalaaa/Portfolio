@@ -89,7 +89,15 @@ FormSubmit was replaced with [Web3Forms](https://web3forms.com) (more reliable f
    VITE_WEB3FORMS_ACCESS_KEY=your_key_here
    ```
 5. Restart the dev server: `npm run dev`
-6. On **Vercel**: Project → Settings → Environment Variables → add `VITE_WEB3FORMS_ACCESS_KEY` → redeploy
+6. On **Vercel**: Project → Settings → Environment Variables → add `VITE_WEB3FORMS_ACCESS_KEY` → **Redeploy** (required)
+
+### Contact form on Vercel (troubleshooting)
+
+- **Value must be the real access key** from your Web3Forms email — a UUID like `a1b2c3d4-e5f6-...` (36 characters). Do not type the literal words `api key`.
+- **Redeploy after saving the variable.** Vite embeds `VITE_*` variables at **build** time. Adding the env var without a new deploy leaves the live bundle without the key.
+- **Environments:** enable **Production** (and Preview if you test preview URLs).
+- **`*.vercel.app` domains:** Web3Forms sometimes blocks free platform subdomains. If the form works on `localhost` but fails on your Vercel URL, [contact Web3Forms](https://web3forms.com/contact) with your exact production URL, or add a custom domain in Vercel.
+- On the live site, a yellow setup hint above the form means the key was not in the last build.
 
 ## Deploy
 

@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { CheckCircle, AlertCircle, ShieldCheck } from 'lucide-react';
 import { CONTACT_ITEMS, EMAIL, SOCIAL_LINKS } from '../../data/social';
 import { emitBirdThought } from '../../lib/birdPreference';
-import { isContactFormConfigured, submitContactForm } from '../../lib/submitContactForm';
+import {
+  getContactSubmitErrorMessage,
+  isContactFormConfigured,
+  submitContactForm,
+} from '../../lib/submitContactForm';
 import { WaterRipple } from '../ui/water-ripple';
 import { ShineBorder } from '../ui/shine-border';
 import { ScrollReveal } from '../ui/scroll-reveal';
@@ -25,6 +29,7 @@ const Contact: React.FC = () => {
 
   const [submitting, setSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+  const [submitErrorDetail, setSubmitErrorDetail] = useState<string | null>(null);
   const mountedRef = useRef(true);
 
   useEffect(() => {
@@ -81,6 +86,7 @@ const Contact: React.FC = () => {
 
     setSubmitting(true);
     setSubmitStatus(null);
+    setSubmitErrorDetail(null);
 
     try {
       const result = await submitContactForm({
@@ -104,11 +110,15 @@ const Contact: React.FC = () => {
         } else {
           console.error('Contact form failed:', result.reason, result.detail);
         }
+        setSubmitErrorDetail(getContactSubmitErrorMessage(result));
         setSubmitStatus('error');
       }
     } catch (error) {
       if (!mountedRef.current) return;
       console.error('Error submitting form:', error);
+      setSubmitErrorDetail(
+        error instanceof Error ? error.message : 'Unexpected error while sending.',
+      );
       setSubmitStatus('error');
     } finally {
       if (mountedRef.current) setSubmitting(false);
@@ -220,10 +230,20 @@ const Contact: React.FC = () => {
             <ShineBorder>
             <div className="rk-contact-form-card">
             <form onSubmit={handleSubmit} noValidate>
-              {!isContactFormConfigured() && import.meta.env.DEV ? (
+              {!isContactFormConfigured() ? (
                 <p className="rk-contact-setup-hint" role="status">
-                  Dev: add your Web3Forms key in <code>.env.local</code> (see{' '}
-                  <code>.env.example</code>).
+                  {import.meta.env.DEV ? (
+                    <>
+                      Dev: add your Web3Forms key in <code>.env.local</code> (see{' '}
+                      <code>.env.example</code>).
+                    </>
+                  ) : (
+                    <>
+                      Contact form is not configured on this deploy. Add{' '}
+                      <code>VITE_WEB3FORMS_ACCESS_KEY</code> in Vercel environment variables, then{' '}
+                      <strong>Redeploy</strong> (required — Vite bakes the key at build time).
+                    </>
+                  )}
                 </p>
               ) : null}
 
@@ -238,7 +258,7 @@ const Contact: React.FC = () => {
                 <div className="rk-contact-alert error">
                   <AlertCircle size={18} />
                   <span>
-                    Could not send right now. Please email{' '}
+                    {submitErrorDetail ?? 'Could not send right now.'} Or email{' '}
                     <a href={SOCIAL_LINKS.email}>{EMAIL}</a> directly.
                   </span>
                 </div>
