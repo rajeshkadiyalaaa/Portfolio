@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { CheckCircle, AlertCircle, ShieldCheck } from 'lucide-react';
-import { CONTACT_ITEMS, SOCIAL_LINKS } from '../../data/social';
+import { CONTACT_ITEMS, EMAIL, SOCIAL_LINKS } from '../../data/social';
 import { emitBirdThought } from '../../lib/birdPreference';
+import { isContactFormConfigured, submitContactForm } from '../../lib/submitContactForm';
 import { WaterRipple } from '../ui/water-ripple';
 import { ShineBorder } from '../ui/shine-border';
 import { ScrollReveal } from '../ui/scroll-reveal';
@@ -82,23 +83,28 @@ const Contact: React.FC = () => {
     setSubmitStatus(null);
 
     try {
-      const formElement = e.target as HTMLFormElement;
-      const formData = new FormData(formElement);
-
-      const response = await fetch(formElement.action, {
-        method: 'POST',
-        body: formData,
-        headers: { Accept: 'application/json' },
+      const result = await submitContactForm({
+        name: formState.name.trim(),
+        email: formState.email.trim(),
+        subject: formState.subject.trim(),
+        message: formState.message.trim(),
       });
 
       if (!mountedRef.current) return;
 
-      if (response.ok) {
+      if (result.ok) {
         setSubmitStatus('success');
         emitBirdThought('Message delivered.');
         setFormState({ name: '', email: '', subject: '', message: '' });
       } else {
-        throw new Error('Form submission failed');
+        if (result.reason === 'missing_key') {
+          console.error(
+            'Contact form: add VITE_WEB3FORMS_ACCESS_KEY to .env.local — see .env.example',
+          );
+        } else {
+          console.error('Contact form failed:', result.reason, result.detail);
+        }
+        setSubmitStatus('error');
       }
     } catch (error) {
       if (!mountedRef.current) return;
@@ -213,15 +219,13 @@ const Contact: React.FC = () => {
           <ScrollReveal variant="scale" delay={280} className="rk-contact-form-slot">
             <ShineBorder>
             <div className="rk-contact-form-card">
-            <form
-              onSubmit={handleSubmit}
-              action={SOCIAL_LINKS.formsubmit}
-              method="POST"
-            >
-              <input type="hidden" name="_subject" value="New contact from Portfolio Website" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_next" value={window.location.href} />
+            <form onSubmit={handleSubmit} noValidate>
+              {!isContactFormConfigured() && import.meta.env.DEV ? (
+                <p className="rk-contact-setup-hint" role="status">
+                  Dev: add your Web3Forms key in <code>.env.local</code> (see{' '}
+                  <code>.env.example</code>).
+                </p>
+              ) : null}
 
               {submitStatus === 'success' && (
                 <div className="rk-contact-alert success">
@@ -233,7 +237,10 @@ const Contact: React.FC = () => {
               {submitStatus === 'error' && (
                 <div className="rk-contact-alert error">
                   <AlertCircle size={18} />
-                  <span>There was an error sending your message. Please try again.</span>
+                  <span>
+                    Could not send right now. Please email{' '}
+                    <a href={SOCIAL_LINKS.email}>{EMAIL}</a> directly.
+                  </span>
                 </div>
               )}
 

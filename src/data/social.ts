@@ -12,7 +12,6 @@ export const SOCIAL_LINKS = {
   github: GITHUB_URL,
   linkedin: LINKEDIN_URL,
   resume: RESUME_PATH,
-  formsubmit: `https://formsubmit.co/${EMAIL}`,
 } as const;
 
 export interface ContactItem {

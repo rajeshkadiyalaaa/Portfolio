@@ -74,6 +74,23 @@ Open [http://localhost:5173](http://localhost:5173).
 - **Resume** — replace `public/Kadiyala_Rajesh_Resume_2026.pdf`
 - **Project PDFs** — add files under `public/project-previews/` and reference them in `projects.ts`
 
+## Contact form setup (required for “Send Message”)
+
+FormSubmit was replaced with [Web3Forms](https://web3forms.com) (more reliable for React sites).
+
+1. Open [https://web3forms.com](https://web3forms.com)
+2. Enter **rajeshkadiyalaaa@gmail.com** (or the inbox you want messages in)
+3. Check that inbox for your **Access Key** (usually arrives within a minute)
+4. Copy `.env.example` → `.env.local` and paste the key:
+   ```bash
+   cp .env.example .env.local
+   ```
+   ```env
+   VITE_WEB3FORMS_ACCESS_KEY=your_key_here
+   ```
+5. Restart the dev server: `npm run dev`
+6. On **Vercel**: Project → Settings → Environment Variables → add `VITE_WEB3FORMS_ACCESS_KEY` → redeploy
+
 ## Deploy
 
 The app is a static Vite build. Deploy the `dist` folder to Vercel, Netlify, or any static host. `vercel.json` is included for Vercel deployments.

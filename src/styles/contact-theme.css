@@ -238,6 +238,29 @@
   color: #a93226;
 }
 
+.rk-contact-alert.error a {
+  color: var(--rk-orange, #e8713a);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.rk-contact-setup-hint {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(26, 26, 26, 0.55);
+  background: rgba(232, 113, 58, 0.08);
+  border: 1px dashed rgba(232, 113, 58, 0.35);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+}
+
+.rk-contact-setup-hint code {
+  font-size: 11px;
+  color: var(--rk-dark, #1a1a1a);
+}
+
 .rk-contact-form-footer {
   display: flex;
   align-items: center;
