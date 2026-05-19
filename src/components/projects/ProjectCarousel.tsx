@@ -99,7 +99,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
             hasPdf ? ' rk-project-card-media-inner--fallback' : ''
           }`}
         >
-          <Icon size={48} strokeWidth={1.25} color="rgba(255,255,255,0.35)" />
+          <Icon size={48} strokeWidth={1.25} color="rgba(232, 113, 58, 0.42)" />
         </div>
       </div>
       <div className="rk-project-card-body">

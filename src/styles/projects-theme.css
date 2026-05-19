@@ -185,14 +185,10 @@
   cursor: pointer;
   opacity: 0;
   will-change: transform, opacity, filter;
-  border: 1px solid rgba(26, 26, 26, 0.09);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.92),
-    0 2px 4px rgba(26, 26, 26, 0.05),
-    0 10px 22px rgba(26, 26, 26, 0.07),
-    0 20px 40px rgba(26, 26, 26, 0.06);
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  box-shadow: none;
   transition:
-    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -200,30 +196,15 @@
   transform: scale(var(--carousel-scale, 0.82));
 }
 
-/* Center card — lifted “panel” with warm rim (pairs with carousel scale) */
+/* Center card — border emphasis instead of heavy shadow */
 .rk-project-card--carousel.rk-project-card--focused {
-  border-color: rgba(232, 113, 58, 0.28);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 1),
-    inset 0 -1px 0 rgba(26, 26, 26, 0.04),
-    0 4px 8px rgba(26, 26, 26, 0.06),
-    0 14px 32px rgba(26, 26, 26, 0.1),
-    0 28px 56px rgba(26, 26, 26, 0.14),
-    0 48px 80px rgba(26, 26, 26, 0.1),
-    0 0 0 1px rgba(232, 113, 58, 0.14),
-    0 0 48px rgba(232, 113, 58, 0.1);
+  border-color: rgba(232, 113, 58, 0.5);
+  box-shadow: none;
 }
 
 .rk-project-card--carousel.rk-project-card--focused:hover {
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 1),
-    inset 0 -1px 0 rgba(26, 26, 26, 0.04),
-    0 6px 12px rgba(26, 26, 26, 0.07),
-    0 18px 40px rgba(26, 26, 26, 0.12),
-    0 32px 64px rgba(26, 26, 26, 0.16),
-    0 52px 88px rgba(26, 26, 26, 0.11),
-    0 0 0 1px rgba(232, 113, 58, 0.2),
-    0 0 56px rgba(232, 113, 58, 0.12);
+  border-color: rgba(232, 113, 58, 0.62);
+  box-shadow: none;
 }
 
 .rk-projects-grid {
@@ -239,20 +220,15 @@
   background: linear-gradient(180deg, #ffffff 0%, #faf7f2 100%);
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(26, 26, 26, 0.12);
   display: flex;
   flex-direction: column;
   transform-style: preserve-3d;
   transform: translateY(0) translateZ(0);
   transition:
     transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 1px 2px rgba(26, 26, 26, 0.04),
-    0 4px 8px rgba(26, 26, 26, 0.05),
-    0 12px 24px rgba(26, 26, 26, 0.06),
-    0 24px 48px rgba(26, 26, 26, 0.08);
+    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: none;
 }
 
 .rk-project-card::after {
@@ -261,47 +237,41 @@
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  box-shadow: inset 0 -1px 0 rgba(26, 26, 26, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
   z-index: 3;
 }
 
 .rk-project-card:not(.rk-project-card--carousel):hover {
-  transform: translateY(-10px) translateZ(16px) rotateX(2deg);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 1),
-    0 2px 4px rgba(26, 26, 26, 0.05),
-    0 8px 16px rgba(26, 26, 26, 0.07),
-    0 20px 40px rgba(26, 26, 26, 0.1),
-    0 36px 64px rgba(26, 26, 26, 0.14),
-    0 0 0 1px rgba(232, 113, 58, 0.08);
+  transform: translateY(-8px) translateZ(8px) rotateX(2deg);
+  border-color: rgba(232, 113, 58, 0.35);
+  box-shadow: none;
 }
 
 .rk-project-card-media {
   position: relative;
   height: 160px;
-  background: linear-gradient(145deg, #2a2a32 0%, #1a1a22 100%);
+  background: linear-gradient(165deg, #f0e8de 0%, #e8dfd4 45%, #e2d6c8 100%);
   overflow: hidden;
   border-radius: 16px 16px 0 0;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 4px 12px rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(26, 26, 26, 0.06);
+  box-shadow: none;
   z-index: 1;
 }
 
 .rk-project-preview-ai {
-  background: linear-gradient(145deg, #1e2433 0%, #12161f 100%);
+  background: linear-gradient(165deg, #ede6dc 0%, #e5dcd0 50%, #e0d4c6 100%);
 }
 
 .rk-project-preview-med {
-  background: linear-gradient(145deg, #1a2830 0%, #0f181c 100%);
+  background: linear-gradient(165deg, #ebe4da 0%, #e3d9cd 50%, #ddd2c4 100%);
 }
 
 .rk-project-preview-style {
-  background: linear-gradient(145deg, #2a1f28 0%, #18121a 100%);
+  background: linear-gradient(165deg, #ede5dc 0%, #e6dbd0 50%, #dfd2c5 100%);
 }
 
 .rk-project-preview-sales {
-  background: linear-gradient(145deg, #1a2230 0%, #101820 100%);
+  background: linear-gradient(165deg, #eae3d9 0%, #e2d8cc 50%, #dcd0c3 100%);
 }
 
 .rk-project-card-media-inner {
@@ -316,7 +286,7 @@
 /* PDF preview — first page at rest, vertical scroll on hover */
 .rk-project-card-media--pdf {
   --pdf-viewport-h: 160px;
-  background: #0f141c;
+  background: linear-gradient(180deg, #f2ebe2 0%, #ebe3d8 50%, #e5dcd0 100%);
 }
 
 .rk-project-pdf-preview {
@@ -329,9 +299,9 @@
 .rk-project-pdf-preview--loading {
   background: linear-gradient(
     110deg,
-    rgba(255, 255, 255, 0.04) 8%,
-    rgba(255, 255, 255, 0.1) 18%,
-    rgba(255, 255, 255, 0.04) 33%
+    rgba(245, 240, 232, 0.35) 8%,
+    rgba(232, 113, 58, 0.12) 18%,
+    rgba(245, 240, 232, 0.35) 33%
   );
   background-size: 200% 100%;
   animation: rk-project-pdf-shimmer 1.4s ease-in-out infinite;
@@ -393,7 +363,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .rk-project-card {
-    transition: box-shadow 0.35s ease;
+    transition: border-color 0.35s ease;
   }
 
   .rk-project-card:hover {
