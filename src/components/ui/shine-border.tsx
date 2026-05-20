@@ -1,5 +1,5 @@
 /**
- * Animated shine border wrapper — orange/white gradient, slow rotation.
+ * Contact form wrapper — static rounded border frame.
  */
 import type { ReactNode } from 'react';
 

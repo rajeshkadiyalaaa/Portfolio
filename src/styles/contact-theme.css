@@ -175,12 +175,26 @@
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   color: var(--rk-dark, #1a1a1a);
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid #abb4b0;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid rgba(26, 26, 26, 0.22);
   border-radius: 10px;
   padding: 14px 16px;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.rk-contact-input:-webkit-autofill,
+.rk-contact-input:-webkit-autofill:hover,
+.rk-contact-input:-webkit-autofill:focus,
+.rk-contact-textarea:-webkit-autofill,
+.rk-contact-textarea:-webkit-autofill:hover,
+.rk-contact-textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--rk-dark, #1a1a1a);
+  caret-color: var(--rk-dark, #1a1a1a);
+  box-shadow: 0 0 0 1000px transparent inset;
+  transition: background-color 99999s ease-in-out 0s;
 }
 
 .rk-contact-input::placeholder,
@@ -190,6 +204,7 @@
 
 .rk-contact-input:focus,
 .rk-contact-textarea:focus {
+  background-color: transparent;
   border-color: var(--rk-orange, #e8713a);
   box-shadow: 0 0 0 3px rgba(232, 113, 58, 0.12);
 }
@@ -480,9 +495,9 @@
     height: 160%;
     background: linear-gradient(
       to top,
-      rgba(226, 213, 213, 0.97) 0%,
-      rgba(226, 213, 213, 0.82) 38%,
-      rgba(226, 213, 213, 0.35) 68%,
+      rgba(var(--rk-cream-rgb, 246, 234, 234), 0.97) 0%,
+      rgba(var(--rk-cream-rgb, 246, 234, 234), 0.82) 38%,
+      rgba(var(--rk-cream-rgb, 246, 234, 234), 0.35) 68%,
       transparent 100%
     );
     z-index: 0;

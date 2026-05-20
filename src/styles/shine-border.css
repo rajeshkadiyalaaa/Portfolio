@@ -1,68 +1,25 @@
-/* Animated shine border — contact form card (orange + white) */
+/* Contact form frame — static border (no rotating shine) */
 
 .rk-shine-border {
   position: relative;
-  --shine-border-width: 3px;
   --shine-border-radius: 20px;
-  --shine-duration: 16s;
   border-radius: var(--shine-border-radius);
-  padding: var(--shine-border-width);
-  overflow: hidden;
-  /* fallback ring visible even if animation is off */
-  background: linear-gradient(
-    135deg,
-    rgba(232, 113, 58, 0.45),
-    rgba(255, 255, 255, 0.85),
-    rgba(240, 137, 90, 0.5)
-  );
+  padding: 0;
+  overflow: visible;
+  background: transparent;
 }
 
-/* rotating conic highlight — sits in the padding ring, not behind the card */
 .rk-shine-border::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 220%;
-  height: 220%;
-  transform: translate(-50%, -50%);
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    rgba(255, 255, 255, 0.15) 30deg,
-    rgba(255, 255, 255, 1) 70deg,
-    rgba(255, 230, 210, 0.95) 110deg,
-    rgba(232, 113, 58, 0.95) 150deg,
-    rgba(240, 137, 90, 0.9) 190deg,
-    rgba(255, 255, 255, 0.95) 230deg,
-    rgba(255, 255, 255, 0.2) 280deg,
-    transparent 360deg
-  );
-  animation: rk-shine-rotate var(--shine-duration) linear infinite;
-  z-index: 0;
-  pointer-events: none;
-}
-
-@keyframes rk-shine-rotate {
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
+  display: none;
 }
 
 .rk-shine-border .rk-contact-form-card {
   position: relative;
   z-index: 1;
   color: var(--rk-dark, #1a1a1a);
-  background: var(--rk-cream, #e2d5d5);
-  border-radius: calc(var(--shine-border-radius) - var(--shine-border-width));
+  background: transparent;
+  border: 2px solid rgba(232, 113, 58, 0.38);
+  border-radius: var(--shine-border-radius);
   padding: 32px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rk-shine-border::before {
-    animation: none;
-    transform: translate(-50%, -50%) rotate(35deg);
-    opacity: 0.7;
-  }
+  box-shadow: none;
 }

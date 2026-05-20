@@ -11,21 +11,26 @@
 
 .rk-loading-spinner {
   position: relative;
+  display: block;
+  flex-shrink: 0;
+  margin-inline: auto;
+  overflow: visible;
 }
 
 .rk-loading-spinner__hub {
   position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
 }
 
 .rk-loading-spinner__bar {
   position: absolute;
+  left: 50%;
+  top: 50%;
   height: 8%;
   width: 24%;
-  left: -10%;
-  top: -3.9%;
+  margin-left: -12%;
+  margin-top: -4%;
   border-radius: 5px;
   background: var(--rk-orange, #e8713a);
   animation: rk-fade-spin 1.2s linear infinite;
@@ -56,11 +61,17 @@ body.rk-is-loading {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 20px;
+  width: 100%;
+  max-width: 120px;
+  margin-inline: auto;
 }
 
 .rk-loading-screen__percent {
   margin: 0;
+  width: 100%;
+  text-align: center;
   font-family: 'DM Sans', sans-serif;
   font-size: 15px;
   font-weight: 500;

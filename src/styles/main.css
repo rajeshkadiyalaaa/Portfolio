@@ -41,3 +41,11 @@ body {
 #root {
   min-height: 100vh;
 }
+
+/* Mobile-only page background (desktop keeps --rk-cream in variables.css) */
+@media (max-width: 900px) {
+  :root {
+    --rk-cream: #f6eaea;
+    --rk-cream-rgb: 246, 234, 234;
+  }
+}

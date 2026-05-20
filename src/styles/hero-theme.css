@@ -191,8 +191,8 @@
     pointer-events: none;
     background: linear-gradient(
       105deg,
-      rgba(226, 213, 213, 0.72) 0%,
-      rgba(226, 213, 213, 0.28) 42%,
+      rgba(var(--rk-cream-rgb, 246, 234, 234), 0.72) 0%,
+      rgba(var(--rk-cream-rgb, 246, 234, 234), 0.28) 42%,
       transparent 68%
     );
   }
