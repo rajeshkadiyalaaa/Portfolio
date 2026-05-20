@@ -1,5 +1,6 @@
 import React from 'react';
 import CareerAlternatingTimeline from '../background/CareerAlternatingTimeline';
+import { staticAsset } from '../../lib/staticAssets';
 import { WaterRipple } from '../ui/water-ripple';
 import { ScrollReveal } from '../ui/scroll-reveal';
 import { BrushUnderline } from '../ui/brush-underline';
@@ -10,7 +11,7 @@ const Background: React.FC = () => {
     <section id="background" className="rk-background" data-water-ripple>
       <div className="rk-background-art" aria-hidden>
         <img
-          src="/background/upper_left.png"
+          src={staticAsset('/background/upper_left.png')}
           alt=""
           className="rk-background-art__piece rk-background-art__piece--upper-left"
           width={269}
@@ -19,7 +20,7 @@ const Background: React.FC = () => {
           decoding="async"
         />
         <img
-          src="/background/upper_right.png"
+          src={staticAsset('/background/upper_right.png')}
           alt=""
           className="rk-background-art__piece rk-background-art__piece--upper-right"
           width={452}
@@ -28,7 +29,7 @@ const Background: React.FC = () => {
           decoding="async"
         />
         <img
-          src="/background/downleft.png"
+          src={staticAsset('/background/downleft.png')}
           alt=""
           className="rk-background-art__piece rk-background-art__piece--down-left"
           width={279}
@@ -37,7 +38,7 @@ const Background: React.FC = () => {
           decoding="async"
         />
         <img
-          src="/background/downright.png"
+          src={staticAsset('/background/downright.png')}
           alt=""
           className="rk-background-art__piece rk-background-art__piece--down-right"
           width={697}

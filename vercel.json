@@ -1,9 +1,23 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+  "rewrites": [
+    {
+      "source": "/((?!.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ],
   "cleanUrls": true,
   "headers": [
+    {
+      "source": "/background/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
     {
       "source": "/(.*)\\.(mp4|webm|png|svg|jpg|jpeg|webp|ico|lottie|mp3|pdf)",
       "headers": [

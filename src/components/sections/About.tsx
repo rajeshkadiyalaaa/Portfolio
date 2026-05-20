@@ -1,5 +1,6 @@
 import React from 'react';
 import { SKILL_TAGS } from '../../data/skills';
+import { staticAsset } from '../../lib/staticAssets';
 import { WaterRipple } from '../ui/water-ripple';
 import { ScrollReveal } from '../ui/scroll-reveal';
 
@@ -10,7 +11,7 @@ const About: React.FC = () => {
 
       {/* Section-level art — frames portrait without sitting in the photo column */}
       <img
-        src="/background/about_upper_left.png"
+        src={staticAsset('/background/about_upper_left.png')}
         alt=""
         className="rk-about-upper-left"
         width={239}
@@ -20,7 +21,7 @@ const About: React.FC = () => {
         aria-hidden
       />
       <img
-        src="/background/about_upper_right.png"
+        src={staticAsset('/background/about_upper_right.png')}
         alt=""
         className="rk-about-upper-right"
         width={344}

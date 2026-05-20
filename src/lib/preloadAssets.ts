@@ -3,6 +3,7 @@
  */
 
 import { MOBILE_LAYOUT_MQ } from './layout';
+import { staticAsset } from './staticAssets';
 
 export type PreloadProgress = {
   /** Snapped to 10, 20, … 100 */
@@ -21,15 +22,15 @@ const IMAGE_URLS = [
   '/about-footer-1280.webp',
   '/projects-footer.webp',
   '/projects-footer-1280.webp',
-  '/background/about_upper_left.png',
-  '/background/about_upper_right.png',
-  '/background/upper_left.png',
-  '/background/upper_right.png',
-  '/background/downleft.png',
-  '/background/downright.png',
-  '/background/contact_upper_left.png',
-  '/background/contact_down_left.png',
-  '/background/contact_down_right.png',
+  staticAsset('/background/about_upper_left.png'),
+  staticAsset('/background/about_upper_right.png'),
+  staticAsset('/background/upper_left.png'),
+  staticAsset('/background/upper_right.png'),
+  staticAsset('/background/downleft.png'),
+  staticAsset('/background/downright.png'),
+  staticAsset('/background/contact_upper_left.png'),
+  staticAsset('/background/contact_down_left.png'),
+  staticAsset('/background/contact_down_right.png'),
   '/Project_Images/Assistant.png',
   '/Project_Images/Dental_caries.png',
   '/Project_Images/image_style_Transfer.png',

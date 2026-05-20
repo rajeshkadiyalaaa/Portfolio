@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { CheckCircle, AlertCircle, ShieldCheck } from 'lucide-react';
 import { CONTACT_ITEMS, EMAIL, SOCIAL_LINKS } from '../../data/social';
 import { emitBirdThought } from '../../lib/birdPreference';
+import { staticAsset } from '../../lib/staticAssets';
 import { playSubmitSuccessSound } from '../../lib/playSubmitSuccessSound';
 import {
   getContactSubmitErrorMessage,
@@ -131,7 +132,7 @@ const Contact: React.FC = () => {
     <section id="contact" className="rk-contact" data-water-ripple>
       <div className="rk-contact-art" aria-hidden>
         <img
-          src="/background/contact_upper_left.png"
+          src={staticAsset('/background/contact_upper_left.png')}
           alt=""
           className="rk-contact-art__piece rk-contact-art__piece--upper-left"
           width={432}
@@ -140,7 +141,7 @@ const Contact: React.FC = () => {
           decoding="async"
         />
         <img
-          src="/background/contact_down_left.png"
+          src={staticAsset('/background/contact_down_left.png')}
           alt=""
           className="rk-contact-art__piece rk-contact-art__piece--down-left"
           width={677}
@@ -149,7 +150,7 @@ const Contact: React.FC = () => {
           decoding="async"
         />
         <img
-          src="/background/contact_down_right.png"
+          src={staticAsset('/background/contact_down_right.png')}
           alt=""
           className="rk-contact-art__piece rk-contact-art__piece--down-right"
           width={462}
