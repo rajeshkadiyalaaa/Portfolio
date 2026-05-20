@@ -1,6 +1,7 @@
 import React from 'react';
 import { SKILL_TAGS } from '../../data/skills';
 import { staticAsset } from '../../lib/staticAssets';
+import { staticAsset } from '../../lib/staticAssets';
 import { WaterRipple } from '../ui/water-ripple';
 import { ScrollReveal } from '../ui/scroll-reveal';
 
@@ -72,8 +73,8 @@ const About: React.FC = () => {
       </div>
 
       <img
-        src="/about-footer.webp"
-        srcSet="/about-footer-1280.webp 1280w, /about-footer.webp 1920w"
+        src={staticAsset('/about-footer.webp')}
+        srcSet={`${staticAsset('/about-footer-1280.webp')} 1280w, ${staticAsset('/about-footer.webp')} 1920w`}
         sizes="100vw"
         alt=""
         className="rk-about-footer"

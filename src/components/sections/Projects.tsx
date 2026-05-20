@@ -1,5 +1,6 @@
 import React from 'react';
 import { PROJECTS } from '../../data/projects';
+import { staticAsset } from '../../lib/staticAssets';
 import { SOCIAL_LINKS } from '../../data/nav';
 import ProjectCarousel from '../projects/ProjectCarousel';
 import { WaterRipple } from '../ui/water-ripple';
@@ -11,7 +12,7 @@ const Projects: React.FC = () => {
     <section id="projects" className="rk-projects" data-water-ripple>
       <WaterRipple />
       <img
-        src="/mountain-art.webp"
+        src={staticAsset('/mountain-art.webp')}
         alt=""
         className="rk-projects-mountain-art"
         loading="lazy"
@@ -19,7 +20,7 @@ const Projects: React.FC = () => {
         aria-hidden
       />
       <img
-        src="/mountain-right.webp"
+        src={staticAsset('/mountain-right.webp')}
         alt=""
         className="rk-projects-mountain-right"
         loading="lazy"

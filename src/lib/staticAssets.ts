@@ -1,5 +1,5 @@
 /** Bump when replacing files under public/ so browsers fetch fresh art. */
-export const STATIC_ASSET_VERSION = '20260521b';
+export const STATIC_ASSET_VERSION = '20260522';
 
 export function staticAsset(path: string): string {
   const separator = path.includes('?') ? '&' : '?';

@@ -47,7 +47,7 @@
   aspect-ratio: 1343 / 331;
   z-index: 0;
   pointer-events: none;
-  background-image: url('/projects-footer.webp');
+  background-image: url('/projects-footer.webp?v=20260522');
   background-repeat: no-repeat;
   background-position: center bottom;
   background-size: 100% auto;
@@ -129,8 +129,8 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid rgba(26, 26, 26, 0.1);
-  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(26, 26, 26, 0.14);
+  background: var(--rk-cream, #e2d5d5);
   color: var(--rk-dark, #1a1a1a);
   font-size: 28px;
   line-height: 1;
@@ -138,14 +138,16 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(26, 26, 26, 0.1);
-  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: none;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s, color 0.2s;
 }
 
 .rk-projects-carousel-arrow:hover {
-  background: #fff;
+  background: var(--rk-cream, #e2d5d5);
+  border-color: rgba(232, 113, 58, 0.45);
+  color: var(--rk-orange, #e8713a);
   transform: translateY(-50%) scale(1.05);
-  box-shadow: 0 6px 20px rgba(26, 26, 26, 0.14);
+  box-shadow: none;
 }
 
 .rk-projects-carousel-arrow--prev {
@@ -458,7 +460,7 @@
   }
 
   .rk-projects-bg {
-    background-image: url('/projects-footer-1280.webp');
+    background-image: url('/projects-footer-1280.webp?v=20260522');
     max-height: min(16vh, 110px);
   }
 
@@ -489,7 +491,8 @@
     height: 40px;
     font-size: 22px;
     top: calc(50% - 52px);
-    box-shadow: 0 2px 12px rgba(26, 26, 26, 0.08);
+    background: var(--rk-cream, #f6eaea);
+    box-shadow: none;
   }
 
   .rk-projects-carousel-arrow--prev {
