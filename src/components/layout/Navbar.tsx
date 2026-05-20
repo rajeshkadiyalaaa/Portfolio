@@ -140,7 +140,6 @@ const Navbar: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="rk-btn-resume"
-            style={{ width: 'fit-content' }}
             data-bird-perch
           >
             Resume

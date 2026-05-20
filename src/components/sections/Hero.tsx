@@ -34,10 +34,11 @@ const Hero: React.FC = () => {
           className="rk-hero-video"
           src={media.videoSrc}
           poster={media.poster}
+          autoPlay
           muted
           loop
           playsInline
-          preload="none"
+          preload="metadata"
           disablePictureInPicture
           disableRemotePlayback
           aria-hidden

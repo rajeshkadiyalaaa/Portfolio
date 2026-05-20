@@ -251,6 +251,60 @@
   background: #e1d6d6;
 }
 
+.rk-project-card-actions {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+}
+
+.rk-project-card-action {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  background: rgba(225, 214, 214, 0.92);
+  border: 1px solid #000;
+  text-decoration: none;
+  box-shadow: none;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.rk-project-card-action:hover {
+  background: var(--rk-orange, #e8713a);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.rk-project-card-action:focus-visible {
+  outline: 2px solid rgba(232, 113, 58, 0.55);
+  outline-offset: 2px;
+}
+
+.rk-project-card-body-actions {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rk-project-card-action--inline {
+  width: 34px;
+  height: 34px;
+  background: rgba(0, 0, 0, 0.04);
+  backdrop-filter: none;
+}
+
+.rk-project-card-action--inline:hover {
+  transform: none;
+}
+
 .rk-project-card-preview-img {
   position: absolute;
   inset: 0;

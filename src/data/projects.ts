@@ -4,6 +4,7 @@ export interface Project {
   title: string;
   description: string;
   technologies: string[];
+  liveUrl?: string;
   githubUrl?: string;
   icon: LucideIcon;
   previewImage: string;
@@ -11,10 +12,11 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    title: 'AI Writing Assistant',
+    title: 'Scribe- AI Document Writer',
     description:
-      'A full-stack AI-powered writing assistant for real-time grammar correction, tone transformation, and content enhancement.',
-    technologies: ['React', 'Python', 'OpenRouter LLMs'],
+      'Scribe helps you write better, faster. Draft in a clean editor, ask the AI for ideas or rewrites, get suggestions to polish your text, and export when youre done—all in one place.',
+    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'OpenRouter LLMs','Vite','Cursor','Render','Docker'],
+    liveUrl: 'https://scribe-23gk.onrender.com/',
     githubUrl: 'https://github.com/rajeshkadiyalaaa/AI-writing-assistant.git',
     icon: Bot,
     previewImage: '/Project_Images/Assistant.png',

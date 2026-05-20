@@ -85,17 +85,21 @@
   background: var(--rk-orange);
   color: #fff;
   border: none;
-  padding: 10px 31px;
+  padding: 10px 28px;
   border-radius: 50px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   font-family: 'Cormorant SC', serif;
   transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-  letter-spacing: 3px;
+  letter-spacing: 0.14em;
   text-decoration: none;
-  display: inline-block;
-  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  line-height: 1;
 }
 
 .rk-btn-resume:hover {
@@ -207,7 +211,19 @@
     font-weight: 600;
   }
 
-  .rk-nav-mobile-menu a.active {
-    color: var(--rk-orange);
+  .rk-nav-mobile-menu .rk-btn-resume {
+    width: 100%;
+    margin-top: 8px;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #fff;
+    border-radius: 999px;
+  }
+
+  .rk-nav-mobile-menu .rk-btn-resume:hover {
+    transform: none;
+    box-shadow: none;
   }
 }

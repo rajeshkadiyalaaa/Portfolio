@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { Github, Globe } from 'lucide-react';
 import { PROJECTS, type Project } from '../../data/projects';
 import { useCarouselFocus } from '../../hooks/useCarouselFocus';
 import {
@@ -38,7 +39,7 @@ const COUNT = PROJECTS.length;
 type CarouselCardProps = {
   item: CarouselItem;
   registerNode: (slot: number, node: HTMLElement | null) => void;
-  onCardClick: (realIndex: number, githubUrl?: string) => void;
+  onCardClick: (realIndex: number, primaryUrl?: string) => void;
   isCenter: boolean;
 };
 
@@ -61,11 +62,11 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
       ref={ref}
       data-carousel-slot={item.slot}
       className="rk-project-card rk-project-card--carousel"
-      onClick={() => onCardClick(realIdx, item.githubUrl)}
+      onClick={() => onCardClick(realIdx, item.liveUrl ?? item.githubUrl)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          onCardClick(realIdx, item.githubUrl);
+          onCardClick(realIdx, item.liveUrl ?? item.githubUrl);
         }
       }}
       tabIndex={isCenter ? 0 : -1}
@@ -75,6 +76,22 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
       <div
         className="rk-project-card-media rk-project-card-media--image"
       >
+        {item.liveUrl ? (
+          <div className="rk-project-card-actions">
+            <a
+              href={item.liveUrl}
+              className="rk-project-card-action"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open live demo"
+              title="Live demo"
+              data-bird-perch
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Globe size={18} aria-hidden="true" />
+            </a>
+          </div>
+        ) : null}
         <img
           src={item.previewImage}
           alt=""
@@ -94,16 +111,20 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
           ))}
         </div>
         {item.githubUrl ? (
-          <a
-            href={item.githubUrl}
-            className="rk-project-card-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-bird-perch
-            onClick={(e) => e.stopPropagation()}
-          >
-            View Project →
-          </a>
+          <div className="rk-project-card-body-actions">
+            <a
+              href={item.githubUrl}
+              className="rk-project-card-action rk-project-card-action--inline"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open source code on GitHub"
+              title="Source code"
+              data-bird-perch
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Github size={18} aria-hidden="true" />
+            </a>
+          </div>
         ) : null}
       </div>
     </article>
@@ -240,7 +261,7 @@ const ProjectCarousel: React.FC = () => {
   );
 
   const handleCardClick = useCallback(
-    (clickedRealIndex: number, githubUrl?: string) => {
+    (clickedRealIndex: number, primaryUrl?: string) => {
       if (wasDragged.current) return;
 
       if (clickedRealIndex !== activeIndex) {
@@ -248,7 +269,7 @@ const ProjectCarousel: React.FC = () => {
         return;
       }
 
-      if (githubUrl) window.open(githubUrl, '_blank', 'noopener,noreferrer');
+      if (primaryUrl) window.open(primaryUrl, '_blank', 'noopener,noreferrer');
     },
     [activeIndex, scrollToRealIndex],
   );

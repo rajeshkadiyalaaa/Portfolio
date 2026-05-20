@@ -49,6 +49,7 @@ export function useHeroVideoPlayback(
   const [skipVideo, setSkipVideo] = useState(() => shouldSkipVideo());
   const [media, setMedia] = useState<HeroMedia>(getHeroMedia);
   const playingRef = useRef(false);
+  const needsGestureRef = useRef(false);
 
   useEffect(() => {
     const syncSkip = () => setSkipVideo(shouldSkipVideo());
@@ -102,6 +103,7 @@ export function useHeroVideoPlayback(
         if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) video.load();
         void video.play().catch(() => {
           playingRef.current = false;
+          needsGestureRef.current = true;
         });
       } else {
         video.pause();
@@ -133,6 +135,22 @@ export function useHeroVideoPlayback(
 
     document.addEventListener('visibilitychange', onVisibilityChange);
 
+    const onGesture = () => {
+      if (!needsGestureRef.current) return;
+      if (document.hidden) return;
+      const rect = section.getBoundingClientRect();
+      const visibleHeight =
+        Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+      if (visibleHeight / rect.height < VISIBILITY_THRESHOLD) return;
+      needsGestureRef.current = false;
+      applySource();
+      void video.play().catch(() => {
+        needsGestureRef.current = true;
+      });
+    };
+
+    window.addEventListener('pointerdown', onGesture, { passive: true });
+
     if (section.getBoundingClientRect().height > 0) {
       const rect = section.getBoundingClientRect();
       const visibleHeight =
@@ -145,6 +163,7 @@ export function useHeroVideoPlayback(
     return () => {
       observer.disconnect();
       document.removeEventListener('visibilitychange', onVisibilityChange);
+      window.removeEventListener('pointerdown', onGesture);
       video.pause();
       playingRef.current = false;
     };

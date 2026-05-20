@@ -299,20 +299,20 @@ export function usePageBird(
   useEffect(() => {
     if (!enabled) return;
 
-    let raf = 0;
+    const rafRef = { current: 0 as number };
     let paused = document.hidden;
 
     const onVisibility = () => {
       paused = document.hidden;
-      if (!paused && birdRef.current) {
-        raf = requestAnimationFrame(tick);
+      if (!paused && birdRef.current && rafRef.current === 0) {
+        rafRef.current = requestAnimationFrame(tick);
       }
     };
 
     document.addEventListener('visibilitychange', onVisibility);
 
     const tick = () => {
-      raf = 0;
+      rafRef.current = 0;
 
       if (paused || !birdRef.current) return;
 
@@ -387,14 +387,14 @@ export function usePageBird(
         applyFlipDom(spriteRef.current, thoughtRef.current, bird.flipX);
       }
 
-      raf = requestAnimationFrame(tick);
+      rafRef.current = requestAnimationFrame(tick);
     };
 
-    raf = requestAnimationFrame(tick);
+    rafRef.current = requestAnimationFrame(tick);
 
     return () => {
       document.removeEventListener('visibilitychange', onVisibility);
-      cancelAnimationFrame(raf);
+      cancelAnimationFrame(rafRef.current);
     };
   }, [enabled, wrapRef, spriteRef, thoughtRef, handleModeChange, showThought]);
 
