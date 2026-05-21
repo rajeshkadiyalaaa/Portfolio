@@ -2,7 +2,7 @@
 
 .rk-about {
   position: relative;
-  background: var(--rk-cream, #e2d5d5);
+  background: var(--rk-cream, #f6eaea);
   padding: var(--rk-section-py) var(--rk-section-px) 200px;
   overflow: hidden;
 }
@@ -165,8 +165,8 @@
   font-size: clamp(12px, 1.35vw, 14px);
   font-weight: 500;
   color: rgba(26, 26, 26, 0.78);
-  background: rgba(0, 0, 0, 0.06);
-  border: none;
+  background: transparent;
+  border: 1px solid rgba(26, 26, 26, 0.12);
   padding: clamp(8px, 1.1vw, 10px) clamp(14px, 1.8vw, 18px);
   border-radius: 8px;
   line-height: 1.2;
@@ -182,7 +182,8 @@
 
 @media (hover: hover) and (pointer: fine) {
   .rk-about-tag:hover {
-    background: rgba(242, 104, 53, 0.1);
+    background: rgba(232, 113, 58, 0.08);
+    border-color: rgba(232, 113, 58, 0.35);
     color: var(--rk-shine-orange, #f26835);
     transform: translateY(-1px);
     box-shadow: none;
@@ -325,7 +326,8 @@
     padding: 10px 12px;
     font-size: 13px;
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.055);
+    background: transparent;
+    border: 1px solid rgba(26, 26, 26, 0.12);
   }
 }
 
@@ -361,8 +363,8 @@
   }
 
   .rk-about-tag {
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid rgba(26, 26, 26, 0.08);
+    background: transparent;
+    border: 1px solid rgba(26, 26, 26, 0.12);
     color: rgba(26, 26, 26, 0.72);
   }
 

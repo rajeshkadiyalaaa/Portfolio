@@ -2,7 +2,7 @@
 
 .rk-projects {
   position: relative;
-  background: var(--rk-cream, #e2d5d5);
+  background: var(--rk-cream, #f6eaea);
   padding: var(--rk-section-py) var(--rk-section-px) var(--rk-section-pb);
   overflow: hidden;
   isolation: isolate;
@@ -130,7 +130,7 @@
   height: 44px;
   border-radius: 50%;
   border: 1px solid rgba(26, 26, 26, 0.14);
-  background: var(--rk-cream, #e2d5d5);
+  background: var(--rk-cream, #f6eaea);
   color: var(--rk-dark, #1a1a1a);
   font-size: 28px;
   line-height: 1;
@@ -143,7 +143,7 @@
 }
 
 .rk-projects-carousel-arrow:hover {
-  background: var(--rk-cream, #e2d5d5);
+  background: var(--rk-cream, #f6eaea);
   border-color: rgba(232, 113, 58, 0.45);
   color: var(--rk-orange, #e8713a);
   transform: translateY(-50%) scale(1.05);

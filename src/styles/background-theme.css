@@ -3,7 +3,7 @@
 .rk-background {
   position: relative;
   width: 100%;
-  background: var(--rk-cream, #e2d5d5);
+  background: var(--rk-cream, #f6eaea);
   padding: var(--rk-section-py) var(--rk-section-px) var(--rk-section-pb);
   overflow: hidden;
   isolation: isolate;
@@ -151,7 +151,7 @@
   height: 14px;
   border-radius: 50%;
   background: var(--rk-orange, #e8713a);
-  box-shadow: 0 0 0 4px var(--rk-cream, #e2d5d5);
+  box-shadow: 0 0 0 4px var(--rk-cream, #f6eaea);
   flex-shrink: 0;
 }
 
@@ -163,7 +163,7 @@
   color: var(--rk-dark, #1a1a1a);
   white-space: nowrap;
   padding: 2px 6px;
-  background: var(--rk-cream, #e2d5d5);
+  background: var(--rk-cream, #f6eaea);
   border-radius: 4px;
 }
 
@@ -365,7 +365,7 @@
   .rk-career-milestone__node {
     width: 12px;
     height: 12px;
-    box-shadow: 0 0 0 3px var(--rk-cream, #e2d5d5);
+    box-shadow: 0 0 0 3px var(--rk-cream, #f6eaea);
   }
 
   .rk-career-timeline__track-label {

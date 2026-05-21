@@ -1,7 +1,6 @@
 import React from 'react';
 import { SKILL_TAGS } from '../../data/skills';
 import { staticAsset } from '../../lib/staticAssets';
-import { staticAsset } from '../../lib/staticAssets';
 import { WaterRipple } from '../ui/water-ripple';
 import { ScrollReveal } from '../ui/scroll-reveal';
 

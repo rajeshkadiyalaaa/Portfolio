@@ -3,7 +3,7 @@
 .rk-contact {
   position: relative;
   width: 100%;
-  background: var(--rk-cream, #e2d5d5);
+  background: var(--rk-cream, #f6eaea);
   padding: var(--rk-section-py) var(--rk-section-px) var(--rk-section-pb);
   overflow: hidden;
   isolation: isolate;

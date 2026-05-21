@@ -33,7 +33,7 @@
   max-width: min(220px, 42vw);
   padding: 8px 12px;
   border-radius: 14px 14px 14px 4px;
-  background: rgba(var(--rk-cream-rgb, 226, 213, 213), 0.28);
+  background: rgba(var(--rk-cream-rgb, 246, 234, 234), 0.28);
   border: 1px solid rgba(26, 26, 26, 0.12);
   box-shadow: 0 6px 20px rgba(26, 26, 26, 0.06);
   backdrop-filter: blur(12px);
